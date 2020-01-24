@@ -1,0 +1,10 @@
+The OpenAIR project is a directory system for open-source AI technologies.
+
+This project requires an installation of PHP with MySQL. Simply move the /htdocs/ folder to your apache home directory and import the most recent data file into your MySQL instance. 
+Alternatively, you can get the Docker container with everything you need installed and configured from https://hub.docker.com/r/kanesee/airesources/
+
+In htdocs/_secret/mysql_pass.php change lines 5,6 and 7 to reference your MySQL database and all should work well.
+You'll also need to edit auth/opauth.conf.php to add the OAuth login keys. Please contact InferLink for these keys or file.
+
+Note, for oauth to work, the domain which this is served on must be http://airesources.org.
+For development, you can modify your /etc/hosts file to temporary point airesources.org to your dev env machine.

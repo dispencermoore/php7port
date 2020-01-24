@@ -1,0 +1,79 @@
+/**************************
+ * Detail CSS
+ **************************/
+
+#detail-heading {
+  text-align: center;
+  padding: 10px 50px;
+  background: #f3f3f3;
+  position: relative;
+}
+
+#flag-resource {
+  position: absolute;
+  padding-left: 40px;
+  /*right: 20px;*/
+  color: #8e8e8e;
+}
+
+#detail-brief {
+  border-bottom: 1px solid gainsboro;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+#detail-title {
+  margin-bottom: 0;
+}
+
+.detail-submission {
+  font-size: 10px;
+  color: #bbb;
+  vertical-align: super;
+}
+
+.tab-content {
+  padding: 10px;
+}
+
+#detail-tabpanel {
+  margin-top: 20px;
+}
+
+.detail-field {
+  font-weight: bold;
+}
+
+#detail-desc {
+  padding-bottom: 10px;
+}
+
+#deleteSuccess {
+  display: none;
+  font-size: 20px;
+  color: red;
+}
+
+#approveSuccess {
+  display: none;
+  font-size: 20px;
+  color: green;
+}
+
+.owner {
+  /*float: right;*/
+}
+
+.arrow_box {
+  margin-bottom: 30px;
+}
+
+.action-link {
+  padding-left: 50px;
+  padding-right: 25px;
+  vertical-align: super;
+}
+
+.editBtn > a {
+  padding-right: 10px;
+}
