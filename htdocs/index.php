@@ -93,11 +93,11 @@ if(isAdmin()) {
   
     <!-- ############## Editors ############## -->
 <?php
-        $editorRs = mysql_query("
+        $editorRs = mysqli_query("
           SELECT image_url,name, profile_url FROM editor e, user u
           WHERE category_id = $cat
           AND e.editor_id = u.id");
-        if( !empty($cat) && $cat != 0 && mysql_num_rows($editorRs) ) {
+        if( !empty($cat) && $cat != 0 && mysqli_num_rows($editorRs) ) {
 ?>
     <div id="editors" class="row">
       <div class="col-xs-12">
@@ -165,8 +165,8 @@ if(isAdmin()) {
         $count = 0;
         $sqlStatement = getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS);
 
-        $rs = mysql_query($sqlStatement);
-        while ($row = mysql_fetch_array($rs)) {
+        $rs = mysqli_query($sqlStatement);
+        while ($row = mysqli_fetch_array($rs)) {
           $count++;
 
           $types = explode(",", $row{'resource_type'});
@@ -179,13 +179,13 @@ if(isAdmin()) {
                           </span>";
           }
 
-            $catRs = mysql_query("
+            $catRs = mysqli_query("
               SELECT c.id, c.name FROM resource_category rc
               LEFT JOIN category c ON rc.category_id = c.id
               WHERE rc.resource_id = ".$row{'id'});
 
             $catPath = '';
-            while($catRow = mysql_fetch_array($catRs)) {
+            while($catRow = mysqli_fetch_array($catRs)) {
               if( !empty($catPath) ) { $catPath .= " | "; }
               $catPath .= '<a href="?cat='.$catRow{'id'}.'">'.$catRow{'name'}.'</a>';
             }
@@ -194,12 +194,12 @@ if(isAdmin()) {
             if( isLoggedIn() ) {
               $user_id = $_SESSION["user"]->id;
 
-              $likedRs = mysql_query("
+              $likedRs = mysqli_query("
                 SELECT COUNT(*) as cnt FROM resource_likes
                 WHERE resource_id=".$row{'id'}."
                 AND user_id=$user_id
                 ");
-              $likedRow = mysql_fetch_array($likedRs);
+              $likedRow = mysqli_fetch_array($likedRs);
               if( $likedRow{'cnt'} > 0 ) {
                 $likedClass='liked';
               }
