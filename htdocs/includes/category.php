@@ -24,10 +24,10 @@
       $sqlQuery.= " AND id > 0";
   }
   $sqlQuery.= " ORDER BY id";
-  $r = mysql_query($sqlQuery);
+  $r = mysqli_query($pMysqli, $sqlQuery);
 
   $topicHtml = "";
-  while ($catrow = mysql_fetch_array($r)) {
+  while ($catrow = mysqli_fetch_array($r)) {
     $subtopicHtml = writeTopicEntry($catHref, $catrow, $countOf, $cat, 0);
     $topicHtml .= $subtopicHtml;
   }

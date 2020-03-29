@@ -2,10 +2,10 @@
 
 <?php
     $updatePeriodInMonths = 1;
-    $r=mysql_query(getCategoryUpdatesSQL($updatePeriodInMonths));
+    $r=mysqli_query($pMysqli, getCategoryUpdatesSQL($updatePeriodInMonths));
     $updates = [];
     $even = false;
-    while( $row = mysql_fetch_array($r) ) {
+    while( $row = mysqli_fetch_array($r) ) {
       $even = !$even;
       $evenoddRow = ($even) ? 'even-row' : 'odd-row';
 ?>
