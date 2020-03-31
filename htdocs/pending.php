@@ -30,9 +30,9 @@ if(!empty($cat)) {
 $numResult = countPendingResults($subcatString, $query);
 $totalPages = ceil($numResult / $MAX_RESULTS);
 
-$catTitle = getTopicName($cat);
+$catTitle = getTopicName($cat, $pMysqli);
 $catdescription = getTopicDesc($cat);
-$catImg = getTopicImg($cat);
+$catImg = getTopicImg($cat, $pMysqli);
 
 $topicImageElement = "";
 if( !empty($catImg) ) {

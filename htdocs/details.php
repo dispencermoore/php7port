@@ -21,7 +21,7 @@
 <?php
   incrementViewCount($id);
 
-  $catTitle = getTopicName($cat);
+  $catTitle = getTopicName($cat, $pMysqli);
 
     
   $r=mysql_query(getResourceSQL($id));

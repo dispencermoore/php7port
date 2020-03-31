@@ -1,6 +1,8 @@
 session_start();
 
-<?php
+<?php ini_set('“memory_limit”','”16M“');
+
+
 
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
@@ -8,8 +10,14 @@ include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 $conn = mysqli_init();
 $pMysqli = mysqli_real_connect($conn, $hostname, $username, $password, $database);
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database");
+$pMysqli = true;
+$pMysqli = new mysqli('p:' .'127.0.0.1', 'root', 'asa192526', 'openair');
 
-$pMysqli = new mysqli('p:' .'127.0.0.1', 'root', 'nsaiswatchingyou', 'openair');
+#function SPmysqli(){
+# global $pMysqli;
+#}
+
+#SPmysqli();
 
 function redirect($url, $permanent = false) {
   if ($permanent) {
@@ -106,9 +114,9 @@ function getCategoryUpdatesSQL($withinMonths) {
   return $sqlStatement;
 }
 
-function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level) {
-  $id = $row{'id'};
-  $name = $row{'name'};
+function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level, $pMysqli) {
+  $id = $row['id'];
+  $name = $row['name'];
   if( $countOf == 'pending_count' ) {
     $name .= ' (' . $row{'pending_count'} . ')';    
   } else
@@ -126,15 +134,15 @@ function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level) {
   $sqlQuery.= " ORDER BY id";
 
   $r_sub = mysqli_query($pMysqli, $sqlQuery);
-  if( mysqli_num_rows($r_sub) == 0 ) {
+  if( mysqli_num_rows($r_sub) == 0 and mysqli_num_rows($r_sub) < 153) {
     $topic = "<li><a tabindex='-1' href='$catHref?cat=$id'>$name</a></li>";
   } else {
     $topic = "<li class='dropdown-submenu'>
                 <a tabindex='-1' href='$catHref?cat=$id'>$name</a>
               ";
     $topic .= "<ul class='dropdown-menu'>";
-    while ($row_sub = mysql_fetch_array($r_sub)) {
-      $topic .= writeTopicEntry( $catHref, $row_sub, $countOf, $selectedCat, $level+1);
+    while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_NUM)) {
+      $topic .= writeTopicEntry( $catHref, $row_sub, $countOf, $selectedCat, $level+1, $pMysqli);
     }
       $topic .= "</ul>";
   }
@@ -164,7 +172,7 @@ function createCategoryEntry($row, $countOf) {
   $sqlQuery.= " ORDER BY id";
 
   $r_sub = mysqli_query($sqlQuery);
-  while ($row_sub = mysqli_fetch_array($r_sub)) {
+  while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_NUM)) {
       if(!empty($children)) {
           $children .= ",";
       }
@@ -234,14 +242,14 @@ function buildJSTreeJson($cat, $openNode, $countOf) {
   return $json;
 }
 
-function getTopicName($cat) {
+function getTopicName($cat, $pMysqli) {
   $resourcetitle = "";
 
   if(empty($cat)) {
       $resourcetitle = "Artificial Intelligence";
   }
   else {
-    $r = mysqli_query("SELECT name from category where id=".$cat);
+    $r = mysqli_query($pMysqli,  "SELECT name from category where id=".$cat);
     $row = mysqli_fetch_array($r);
     if(is_null($row)) {
       $resourcetitle = "Artificial Intelligence";
@@ -275,7 +283,7 @@ function getTopicDesc($cat) {
   return $resourcedescription;
 }
 
-function getTopicImg($cat) {
+function getTopicImg($cat, $pMysqli) {
   $img = "";
 
   if(empty($cat)) {
@@ -283,7 +291,7 @@ function getTopicImg($cat) {
   }
 //  else {
     $r = mysqli_query($pMysqli, "SELECT image from category where id=".$cat);
-    $row = mysqli_fetch_array($pMysqli, $r);
+    $row = mysqli_fetch_array($r, MYSQLI_NUM);
     if(is_null($row)) {
       $img = "http://www.dailygalaxy.com/.a/6a00d8341bf7f753ef019affc63311970d-pi";
     }
@@ -320,7 +328,7 @@ function buildCategorySelect($withAI, $name = 'drilldown') {
 function buildSubCatSqlCondition($cat) {
   //first get all the categories that we should be searching on
   if(empty($cat)) {$cat = 0;}
-  $subcats = getSubCats($cat);
+  $subcats = getSubCats($cat, $pMysqli);
   $subcats[] = $cat;
   $subcatString = "";
   foreach ($subcats as &$value) {
@@ -336,14 +344,14 @@ function buildSubCatSqlCondition($cat) {
   return $subcatString;
 }
 
-function getSubCats($catId) {
+function getSubCats($catId, $pMysqli) {
   $subcats = array();
 
-  $r = mysqli_query("SELECT id FROM category WHERE parent=".$catId);
+  $r = mysqli_query($pMysqli, "SELECT id FROM category WHERE parent=".$catId);
   while ($r) {//$row = mysqli_fetch_array($r)) {
     $subcats[] = $row{'id'};
 
-    $subSubCats = getSubCats($row{'id'});
+    $subSubCats = getSubCats($row{'id'}, $pMysqli);
 
     foreach ($subSubCats as &$value) {
       $subcats[] = $value;
@@ -359,7 +367,7 @@ function getSubCats($catId) {
  * Search stuff
  ****************************************/
 
-function countResults($subcatString, $query) {
+function countResults($subcatString, $query, $pMysqli) {
   $sqlStatement = "
     SELECT count(DISTINCT r.id)
       FROM resource r

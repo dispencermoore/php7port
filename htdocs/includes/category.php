@@ -19,16 +19,16 @@
   if( !isset($catHref) ) { $catHref = '/'; }
 
 
-  $sqlQuery = "SELECT * from category where parent=0";
+  $sqlQuery = "SELECT * from category where parent='.$id'";
   if (!isAdmin()) {
       $sqlQuery.= " AND id > 0";
   }
   $sqlQuery.= " ORDER BY id";
   $r = mysqli_query($pMysqli, $sqlQuery);
-
+echo $sqlQuery;
   $topicHtml = "";
   while ($catrow = mysqli_fetch_array($r)) {
-    $subtopicHtml = writeTopicEntry($catHref, $catrow, $countOf, $cat, 0);
+    $subtopicHtml = writeTopicEntry($catHref, $catrow, $countOf, $cat, 0, $pMysqli);
     $topicHtml .= $subtopicHtml;
   }
 

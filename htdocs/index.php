@@ -22,12 +22,12 @@ if(!empty($cat)) {
   $urlAdd .= "&cat=".$cat;
 }
 
-$numResult = countResults($subcatString, $query);
+$numResult = countResults($subcatString, $query, $pMysqli);
 $totalPages = ceil($numResult / $MAX_RESULTS);
 
-$catTitle = getTopicName($cat);
+$catTitle = getTopicName($cat, $pMysqli);
 //$catdescription = getTopicDesc($cat);
-$catImg = getTopicImg($cat);
+$catImg = getTopicImg($cat, $pMysqli);
 
 $topicImageElement = "";
 if( !empty($catImg) ) {
