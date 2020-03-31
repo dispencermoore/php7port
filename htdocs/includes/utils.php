@@ -11,7 +11,7 @@ $conn = mysqli_init();
 $pMysqli = mysqli_real_connect($conn, $hostname, $username, $password, $database);
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database");
 $pMysqli = true;
-$pMysqli = new mysqli('p:' .'127.0.0.1', 'root', 'asa192526', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
 #function SPmysqli(){
 # global $pMysqli;
@@ -36,7 +36,7 @@ function redirect($url, $permanent = false) {
  * Otherwise, just updates lastLogin time.
  * Returns user along with privilege level.
  **************/
-function loginUser($response) {
+function loginUser($response, $pMysqli) {
   if( $response['auth']['info'] ) {
     $default_privilege = 'user';
     $provider_id = $response['auth']['uid'];
@@ -56,11 +56,11 @@ function loginUser($response) {
       $profile_url = $response['auth']['info']['urls']['twitter'];
     }
     
-    $r = mysqli_query("SELECT * FROM user WHERE provider_id = '".$provider_id."'"
+    $r = mysqli_query($pMysqli,"SELECT * FROM user WHERE provider_id = '".$provider_id."'"
                      ." AND provider_type = '".$provider_type."'");
     if($row = mysqli_fetch_array($r)) {
       // if exists, update fields that may have changed along with lastLogin
-      mysqli_query("UPDATE user SET"
+      mysqli_query($pMysqli,"UPDATE user SET"
                   ." name = '".$user->name."', "
                   ." image_url = '".$user->image."', "
                   ." lastLogin = '".$now."'"
@@ -69,7 +69,7 @@ function loginUser($response) {
       $user->id = $row{'id'};
       $user->privilege = $row{'privilege'};
     } else {
-      mysqli_query("
+      mysqli_query($pMysqli, "
           INSERT INTO user(provider_id, provider_type, 
                            name, image_url, profile_url,
                            privilege, lastLogin)
@@ -151,7 +151,7 @@ function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level, $pMysql
   return $topic;
 }
 
-function createCategoryEntry($row, $countOf) {
+function createCategoryEntry($row, $countOf, $pMysqli) {
   $id = $row{'id'};
   $name = $row{'name'};
   if( $countOf == 'pending_count' ) {
@@ -171,7 +171,7 @@ function createCategoryEntry($row, $countOf) {
   }
   $sqlQuery.= " ORDER BY id";
 
-  $r_sub = mysqli_query($sqlQuery);
+  $r_sub = mysqli_query($pMysqli, $sqlQuery);
   while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_NUM)) {
       if(!empty($children)) {
           $children .= ",";
@@ -185,7 +185,7 @@ function createCategoryEntry($row, $countOf) {
 /****
  * $openNode(true,false) determines if tree is opened to a node or not
  ************/
-function buildJSTreeJson($cat, $openNode, $countOf) {
+function buildJSTreeJson($cat, $openNode, $countOf, $pMysqli) {
   $MAIN_JSON = '{ 
 		"json_data" : {
 			"data" : [
@@ -208,7 +208,7 @@ function buildJSTreeJson($cat, $openNode, $countOf) {
       $sqlQuery.= " AND id > 0";
   }
   $sqlQuery.= " ORDER BY id";
-  $r = mysqli_query($sqlQuery);
+  $r = mysqli_query($pMysqli, $sqlQuery);
 
   while ($row = mysqli_fetch_array($r)) {
       if(!empty($data)) {
@@ -224,7 +224,7 @@ function buildJSTreeJson($cat, $openNode, $countOf) {
     if(empty($cat)) {
       $opencat = "0";
       if(isset($_GET['id']) && $_GET['id'] != '') {
-        $r = mysqli_query("SELECT category_id from resource_category where resource_id=".$_GET['id']);
+        $r = mysqli_query($pMysqli, "SELECT category_id from resource_category where resource_id=".$_GET['id']);
         $row = mysqli_fetch_array($r);
         if(!is_null($row)) {
             $opencat = "\"".$row{'category_id'}."\"";
@@ -262,7 +262,7 @@ function getTopicName($cat, $pMysqli) {
   return $resourcetitle;
 }
 
-function getTopicDesc($cat) {
+function getTopicDesc($cat, $pMysqli) {
   $resourcedescription = "";
 
   if(empty($cat)) {
@@ -270,7 +270,7 @@ function getTopicDesc($cat) {
 
   }
   else {
-    $r = mysqli_query("SELECT id, name, description, parent from category where id=".$cat);
+    $r = mysqli_query($pMysqli,"SELECT id, name, description, parent from category where id=".$cat);
     $row = mysqli_fetch_array($r);
     if(is_null($row)) {
         $resourcedescription = "The category does not exist.";
@@ -303,9 +303,9 @@ function getTopicImg($cat, $pMysqli) {
   return $img;
 }
 
-function getCategoryOptions($catId, $nameprefix) {
+function getCategoryOptions($catId, $nameprefix, $pMysqli) {
   $options = "";
-  $result = mysqli_query("SELECT * FROM category WHERE id != -1 AND parent=".$catId);
+  $result = mysqli_query($pMysqli,"SELECT * FROM category WHERE id != -1 AND parent=".$catId);
   while($row = mysqli_fetch_array($result)){
     $options .= "<option value='".$row['id']."'>".$nameprefix." ".$row['name']."</option>";
     $options .= getCategoryOptions($row['id'], $nameprefix." ".$row['name']." &gt; ");
@@ -420,8 +420,8 @@ function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
   return $sqlStatement;
 }
 
-function countPendingResults($subcatString) {
-  $r=mysqli_query("
+function countPendingResults($subcatString, $pMysqli) {
+  $r=mysqli_query($pMysqli, "
     SELECT count(DISTINCT r.id)
       FROM resource r
     LEFT JOIN resource_category rc ON r.id=rc.resource_id
@@ -486,13 +486,13 @@ function getResourceSQL($resource_id) {
  * Meta-Resource stuff
  ****************************************/
 
-function incrementViewCount($resource_id) {
+function incrementViewCount($resource_id, $pMysqli) {
   $updateSql =
     "UPDATE resource SET"
     ." num_views=num_views+1"
     ." WHERE id=$resource_id";
 
-  $result = mysqli_query($updateSql);
+  $result = mysqli_query($pMysqli, $updateSql);
 }
 
 
