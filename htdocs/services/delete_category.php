@@ -1,5 +1,4 @@
 <?php
-include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 
 if (isAdmin()) {
   //TODO now we can delete this category (and redirect to index anyway)
@@ -8,7 +7,7 @@ if (isAdmin()) {
   if($cat==0 || $cat==-1) { $cat=""; } //This is to prevent deleting the root node or the _ORPHANS node
   
   if(!empty($cat)) {
-    $subcats = getSubCats($cat);
+    $subcats = getSubCats($cat, $pMysqli);
     $subcats[] = $cat;
 
     //First select all the resources in these categories and make them orphans
