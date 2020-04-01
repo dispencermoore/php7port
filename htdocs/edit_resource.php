@@ -10,7 +10,7 @@
   <script src="/assets/js/jqBootstrapValidation.js"></script>
 
   <script>
-    var category_json = <?=buildJSTreeJson($cat, true, 'approved_count')?>;
+    var category_json = <?=buildJSTreeJson($cat, $pMysqli, true, 'approved_count')?>;
   </script>
 
 

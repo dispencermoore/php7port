@@ -19,7 +19,7 @@
     });
   </script>
 <?php
-  incrementViewCount($id);
+  incrementViewCount($id,$pMysqli);
 
   $catTitle = getTopicName($cat, $pMysqli);
 
