@@ -26,7 +26,7 @@ $numResult = countResults($subcatString, $query, $pMysqli);
 $totalPages = ceil($numResult / $MAX_RESULTS);
 
 $catTitle = getTopicName($cat, $pMysqli);
-//$catdescription = getTopicDesc($cat, $pMysqli);
+//$catdescription = getTopicDesc($cat);
 $catImg = getTopicImg($cat, $pMysqli);
 
 $topicImageElement = "";
