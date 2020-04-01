@@ -11,7 +11,7 @@ $conn = mysqli_init();
 $pMysqli = mysqli_real_connect($conn, $hostname, $username, $password, $database);
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database");
 $pMysqli = true;
-$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', 'nsaiswatchingyou', 'openair');
 
 #function SPmysqli(){
 # global $pMysqli;
