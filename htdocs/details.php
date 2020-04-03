@@ -19,24 +19,26 @@
     });
   </script>
 <?php
+
+$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
   incrementViewCount($id,$pMysqli);
 
   $catTitle = getTopicName($cat, $pMysqli);
 
     
-  $r=mysql_query(getResourceSQL($id));
+  $r=mysqli_query($pMysqli, getResourceSQL($id));
 
-  $resourceRs = mysql_fetch_assoc($r);
+  $resourceRs = mysqli_fetch_assoc($r);
 
   $catStmt="
   SELECT c.id, c.name FROM resource_category rc
   LEFT JOIN category c ON rc.category_id = c.id
   WHERE rc.resource_id = ".$resourceRs{'id'};
 
-  $catRs = mysql_query($catStmt);
+  $catRs = mysqli_query($pMysqli, $catStmt);
 
   $catPath = '';
-  while($catRow = mysql_fetch_array($catRs)) {
+  while($catRow = mysqli_fetch_array($catRs)) {
     if( !empty($catPath) ) { $catPath .= " | "; }
     $catPath .= '<a href="/?cat='.$catRow{'id'}.'">'.$catRow{'name'}.'</a>';
   }
@@ -45,12 +47,12 @@
   if( isLoggedIn() ) {
     $user_id = $_SESSION["user"]->id;
 
-    $likedRs = mysql_query("
+    $likedRs = mysqli_query($pMysqli, "
       SELECT COUNT(*) as cnt FROM resource_likes
       WHERE resource_id=".$resourceRs{'id'}."
       AND user_id=$user_id
       ");
-    $likedRow = mysql_fetch_array($likedRs);
+    $likedRow = mysqli_fetch_array($likedRs);
     if( $likedRow{'cnt'} > 0 ) {
       $likedClass='liked';
     }

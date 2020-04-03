@@ -26,7 +26,7 @@ $numResult = countResults($subcatString, $query, $pMysqli);
 $totalPages = ceil($numResult / $MAX_RESULTS);
 
 $catTitle = getTopicName($cat, $pMysqli);
-//$catdescription = getTopicDesc($cat);
+//$catdescription = getTopicDesc($cat, $pMysqli);
 $catImg = getTopicImg($cat, $pMysqli);
 
 $topicImageElement = "";
@@ -162,6 +162,7 @@ if(isAdmin()) {
 
 <?php
         // ########## print search results
+$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
         $count = 0;
         $sqlStatement = getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS);
 
@@ -179,7 +180,7 @@ if(isAdmin()) {
                           </span>";
           }
 
-            $catRs = mysqli_query("
+            $catRs = mysqli_query($pMysqli, "
               SELECT c.id, c.name FROM resource_category rc
               LEFT JOIN category c ON rc.category_id = c.id
               WHERE rc.resource_id = ".$row{'id'});

@@ -11,7 +11,7 @@ $conn = mysqli_init();
 $pMysqli = mysqli_real_connect($conn, $hostname, $username, $password, $database);
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database");
 $pMysqli = true;
-$pMysqli = new mysqli('127.0.0.1', 'root', 'nsaiswatchingyou', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
 
 #function SPmysqli(){
 # global $pMysqli;
@@ -326,6 +326,7 @@ function buildCategorySelect($withAI, $name = 'drilldown') {
 }
 
 function buildSubCatSqlCondition($cat) {
+  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
   //first get all the categories that we should be searching on
   if(empty($cat)) {$cat = 0;}
   $subcats = getSubCats($cat, $pMysqli);
@@ -348,7 +349,7 @@ function getSubCats($catId, $pMysqli) {
   $subcats = array();
 
   $r = mysqli_query($pMysqli, "SELECT id FROM category WHERE parent=".$catId);
-  while ($r) {//$row = mysqli_fetch_array($r)) {
+  while ($row = mysqli_fetch_array($r)) {
     $subcats[] = $row{'id'};
 
     $subSubCats = getSubCats($row{'id'}, $pMysqli);
@@ -368,6 +369,7 @@ function getSubCats($catId, $pMysqli) {
  ****************************************/
 
 function countResults($subcatString, $query, $pMysqli) {
+  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
   $sqlStatement = "
     SELECT count(DISTINCT r.id)
       FROM resource r
@@ -385,6 +387,9 @@ function countResults($subcatString, $query, $pMysqli) {
     $sqlStatement.=" ORDER BY num_likes DESC";
   }
 
+  echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
+  echo $sqlStatement;
+  echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
   $r = mysqli_query($pMysqli, $sqlStatement); //first parameter has to be a mysqli thing?
   $row = mysqli_fetch_row($r);
   return $row[0];
