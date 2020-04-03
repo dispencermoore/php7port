@@ -1,14 +1,23 @@
-<?php
-include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
-
 session_start();
+
+<?php ini_set('“memory_limit”','”16M“');
+
+
+
+include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
 //$conn = mysqli_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
 $conn = mysqli_init();
 $pMysqli = mysqli_real_connect($conn, $hostname, $username, $password, $database);
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database");
+$pMysqli = true;
+$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
 
-$pMysqli = new mysqli('p:' ."127.0.0.1", "root", "nsaiswatchingyou", 'openair');
+#function SPmysqli(){
+# global $pMysqli;
+#}
+
+#SPmysqli();
 
 function redirect($url, $permanent = false) {
   if ($permanent) {
@@ -27,7 +36,7 @@ function redirect($url, $permanent = false) {
  * Otherwise, just updates lastLogin time.
  * Returns user along with privilege level.
  **************/
-function loginUser($response) {
+function loginUser($response, $pMysqli) {
   if( $response['auth']['info'] ) {
     $default_privilege = 'user';
     $provider_id = $response['auth']['uid'];
@@ -47,11 +56,11 @@ function loginUser($response) {
       $profile_url = $response['auth']['info']['urls']['twitter'];
     }
     
-    $r = mysqli_query("SELECT * FROM user WHERE provider_id = '".$provider_id."'"
+    $r = mysqli_query($pMysqli,"SELECT * FROM user WHERE provider_id = '".$provider_id."'"
                      ." AND provider_type = '".$provider_type."'");
     if($row = mysqli_fetch_array($r)) {
       // if exists, update fields that may have changed along with lastLogin
-      mysqli_query("UPDATE user SET"
+      mysqli_query($pMysqli,"UPDATE user SET"
                   ." name = '".$user->name."', "
                   ." image_url = '".$user->image."', "
                   ." lastLogin = '".$now."'"
@@ -60,7 +69,7 @@ function loginUser($response) {
       $user->id = $row{'id'};
       $user->privilege = $row{'privilege'};
     } else {
-      mysqli_query("
+      mysqli_query($pMysqli, "
           INSERT INTO user(provider_id, provider_type, 
                            name, image_url, profile_url,
                            privilege, lastLogin)
@@ -105,9 +114,9 @@ function getCategoryUpdatesSQL($withinMonths) {
   return $sqlStatement;
 }
 
-function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level) {
-  $id = $row{'id'};
-  $name = $row{'name'};
+function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level, $pMysqli) {
+  $id = $row['id'];
+  $name = $row['name'];
   if( $countOf == 'pending_count' ) {
     $name .= ' (' . $row{'pending_count'} . ')';    
   } else
@@ -124,16 +133,16 @@ function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level) {
   }
   $sqlQuery.= " ORDER BY id";
 
-  $r_sub = mysqli_query($sqlQuery);
-  if( mysqli_num_rows($r_sub) == 0 ) {
+  $r_sub = mysqli_query($pMysqli, $sqlQuery);
+  if( mysqli_num_rows($r_sub) == 0 and mysqli_num_rows($r_sub) < 153) {
     $topic = "<li><a tabindex='-1' href='$catHref?cat=$id'>$name</a></li>";
   } else {
     $topic = "<li class='dropdown-submenu'>
                 <a tabindex='-1' href='$catHref?cat=$id'>$name</a>
               ";
     $topic .= "<ul class='dropdown-menu'>";
-    while ($row_sub = mysql_fetch_array($r_sub)) {
-      $topic .= writeTopicEntry($catHref, $row_sub, $countOf, $selectedCat, $level+1);
+    while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_NUM)) {
+      $topic .= writeTopicEntry( $catHref, $row_sub, $countOf, $selectedCat, $level+1, $pMysqli);
     }
       $topic .= "</ul>";
   }
@@ -142,7 +151,7 @@ function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level) {
   return $topic;
 }
 
-function createCategoryEntry($row, $countOf) {
+function createCategoryEntry($row, $countOf, $pMysqli) {
   $id = $row{'id'};
   $name = $row{'name'};
   if( $countOf == 'pending_count' ) {
@@ -162,8 +171,8 @@ function createCategoryEntry($row, $countOf) {
   }
   $sqlQuery.= " ORDER BY id";
 
-  $r_sub = mysqli_query($sqlQuery);
-  while ($row_sub = mysqli_fetch_array($r_sub)) {
+  $r_sub = mysqli_query($pMysqli, $sqlQuery);
+  while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_NUM)) {
       if(!empty($children)) {
           $children .= ",";
       }
@@ -176,7 +185,7 @@ function createCategoryEntry($row, $countOf) {
 /****
  * $openNode(true,false) determines if tree is opened to a node or not
  ************/
-function buildJSTreeJson($cat, $openNode, $countOf) {
+function buildJSTreeJson($cat, $openNode, $countOf, $pMysqli) {
   $MAIN_JSON = '{ 
 		"json_data" : {
 			"data" : [
@@ -199,7 +208,7 @@ function buildJSTreeJson($cat, $openNode, $countOf) {
       $sqlQuery.= " AND id > 0";
   }
   $sqlQuery.= " ORDER BY id";
-  $r = mysqli_query($sqlQuery);
+  $r = mysqli_query($pMysqli, $sqlQuery);
 
   while ($row = mysqli_fetch_array($r)) {
       if(!empty($data)) {
@@ -215,7 +224,7 @@ function buildJSTreeJson($cat, $openNode, $countOf) {
     if(empty($cat)) {
       $opencat = "0";
       if(isset($_GET['id']) && $_GET['id'] != '') {
-        $r = mysqli_query("SELECT category_id from resource_category where resource_id=".$_GET['id']);
+        $r = mysqli_query($pMysqli, "SELECT category_id from resource_category where resource_id=".$_GET['id']);
         $row = mysqli_fetch_array($r);
         if(!is_null($row)) {
             $opencat = "\"".$row{'category_id'}."\"";
@@ -233,14 +242,14 @@ function buildJSTreeJson($cat, $openNode, $countOf) {
   return $json;
 }
 
-function getTopicName($cat) {
+function getTopicName($cat, $pMysqli) {
   $resourcetitle = "";
 
   if(empty($cat)) {
       $resourcetitle = "Artificial Intelligence";
   }
   else {
-    $r = mysqli_query("SELECT name from category where id=".$cat);
+    $r = mysqli_query($pMysqli,  "SELECT name from category where id=".$cat);
     $row = mysqli_fetch_array($r);
     if(is_null($row)) {
       $resourcetitle = "Artificial Intelligence";
@@ -253,7 +262,7 @@ function getTopicName($cat) {
   return $resourcetitle;
 }
 
-function getTopicDesc($cat) {
+function getTopicDesc($cat, $pMysqli) {
   $resourcedescription = "";
 
   if(empty($cat)) {
@@ -261,7 +270,7 @@ function getTopicDesc($cat) {
 
   }
   else {
-    $r = mysqli_query("SELECT id, name, description, parent from category where id=".$cat);
+    $r = mysqli_query($pMysqli,"SELECT id, name, description, parent from category where id=".$cat);
     $row = mysqli_fetch_array($r);
     if(is_null($row)) {
         $resourcedescription = "The category does not exist.";
@@ -274,15 +283,15 @@ function getTopicDesc($cat) {
   return $resourcedescription;
 }
 
-function getTopicImg($cat) {
+function getTopicImg($cat, $pMysqli) {
   $img = "";
 
   if(empty($cat)) {
       $cat = 0;
   }
 //  else {
-    $r = mysqli_query("SELECT image from category where id=".$cat);
-    $row = mysqli_fetch_array($r);
+    $r = mysqli_query($pMysqli, "SELECT image from category where id=".$cat);
+    $row = mysqli_fetch_array($r, MYSQLI_NUM);
     if(is_null($row)) {
       $img = "http://www.dailygalaxy.com/.a/6a00d8341bf7f753ef019affc63311970d-pi";
     }
@@ -294,9 +303,9 @@ function getTopicImg($cat) {
   return $img;
 }
 
-function getCategoryOptions($catId, $nameprefix) {
+function getCategoryOptions($catId, $nameprefix, $pMysqli) {
   $options = "";
-  $result = mysqli_query("SELECT * FROM category WHERE id != -1 AND parent=".$catId);
+  $result = mysqli_query($pMysqli,"SELECT * FROM category WHERE id != -1 AND parent=".$catId);
   while($row = mysqli_fetch_array($result)){
     $options .= "<option value='".$row['id']."'>".$nameprefix." ".$row['name']."</option>";
     $options .= getCategoryOptions($row['id'], $nameprefix." ".$row['name']." &gt; ");
@@ -317,9 +326,10 @@ function buildCategorySelect($withAI, $name = 'drilldown') {
 }
 
 function buildSubCatSqlCondition($cat) {
+  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
   //first get all the categories that we should be searching on
   if(empty($cat)) {$cat = 0;}
-  $subcats = getSubCats($cat);
+  $subcats = getSubCats($cat, $pMysqli);
   $subcats[] = $cat;
   $subcatString = "";
   foreach ($subcats as &$value) {
@@ -335,14 +345,14 @@ function buildSubCatSqlCondition($cat) {
   return $subcatString;
 }
 
-function getSubCats($catId) {
+function getSubCats($catId, $pMysqli) {
   $subcats = array();
 
-  $r = mysqli_query("SELECT id FROM category WHERE parent=".$catId);
-  while ($r) {//$row = mysqli_fetch_array($r)) {
+  $r = mysqli_query($pMysqli, "SELECT id FROM category WHERE parent=".$catId);
+  while ($row = mysqli_fetch_array($r)) {
     $subcats[] = $row{'id'};
 
-    $subSubCats = getSubCats($row{'id'});
+    $subSubCats = getSubCats($row{'id'}, $pMysqli);
 
     foreach ($subSubCats as &$value) {
       $subcats[] = $value;
@@ -358,7 +368,8 @@ function getSubCats($catId) {
  * Search stuff
  ****************************************/
 
-function countResults($subcatString, $query) {
+function countResults($subcatString, $query, $pMysqli) {
+  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
   $sqlStatement = "
     SELECT count(DISTINCT r.id)
       FROM resource r
@@ -376,6 +387,9 @@ function countResults($subcatString, $query) {
     $sqlStatement.=" ORDER BY num_likes DESC";
   }
 
+  echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
+  echo $sqlStatement;
+  echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
   $r = mysqli_query($pMysqli, $sqlStatement); //first parameter has to be a mysqli thing?
   $row = mysqli_fetch_row($r);
   return $row[0];
@@ -411,8 +425,8 @@ function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
   return $sqlStatement;
 }
 
-function countPendingResults($subcatString) {
-  $r=mysqli_query("
+function countPendingResults($subcatString, $pMysqli) {
+  $r=mysqli_query($pMysqli, "
     SELECT count(DISTINCT r.id)
       FROM resource r
     LEFT JOIN resource_category rc ON r.id=rc.resource_id
@@ -477,13 +491,13 @@ function getResourceSQL($resource_id) {
  * Meta-Resource stuff
  ****************************************/
 
-function incrementViewCount($resource_id) {
+function incrementViewCount($resource_id, $pMysqli) {
   $updateSql =
     "UPDATE resource SET"
     ." num_views=num_views+1"
     ." WHERE id=$resource_id";
 
-  $result = mysqli_query($updateSql);
+  $result = mysqli_query($pMysqli, $updateSql);
 }
 
 

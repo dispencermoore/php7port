@@ -22,12 +22,12 @@ if(!empty($cat)) {
   $urlAdd .= "&cat=".$cat;
 }
 
-$numResult = countResults($subcatString, $query);
+$numResult = countResults($subcatString, $query, $pMysqli);
 $totalPages = ceil($numResult / $MAX_RESULTS);
 
-$catTitle = getTopicName($cat);
-//$catdescription = getTopicDesc($cat);
-$catImg = getTopicImg($cat);
+$catTitle = getTopicName($cat, $pMysqli);
+//$catdescription = getTopicDesc($cat, $pMysqli);
+$catImg = getTopicImg($cat, $pMysqli);
 
 $topicImageElement = "";
 if( !empty($catImg) ) {
@@ -93,7 +93,7 @@ if(isAdmin()) {
   
     <!-- ############## Editors ############## -->
 <?php
-        $editorRs = mysqli_query("
+        $editorRs = mysqli_query($pMysqli, "
           SELECT image_url,name, profile_url FROM editor e, user u
           WHERE category_id = $cat
           AND e.editor_id = u.id");
@@ -162,10 +162,11 @@ if(isAdmin()) {
 
 <?php
         // ########## print search results
+$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
         $count = 0;
         $sqlStatement = getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS);
 
-        $rs = mysqli_query($sqlStatement);
+        $rs = mysqli_query($pMysqli, $sqlStatement);
         while ($row = mysqli_fetch_array($rs)) {
           $count++;
 
@@ -179,7 +180,7 @@ if(isAdmin()) {
                           </span>";
           }
 
-            $catRs = mysqli_query("
+            $catRs = mysqli_query($pMysqli, "
               SELECT c.id, c.name FROM resource_category rc
               LEFT JOIN category c ON rc.category_id = c.id
               WHERE rc.resource_id = ".$row{'id'});

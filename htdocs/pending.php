@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,12 +28,12 @@ if(!empty($cat)) {
   $urlAdd .= "&cat=".$cat;
 }
 
-$numResult = countPendingResults($subcatString, $query);
+$numResult = countPendingResults($subcatString, $query,$pMysqli);
 $totalPages = ceil($numResult / $MAX_RESULTS);
 
-$catTitle = getTopicName($cat);
-$catdescription = getTopicDesc($cat);
-$catImg = getTopicImg($cat);
+$catTitle = getTopicName($cat, $pMysqli);
+$catdescription = getTopicDesc($cat, $pMysqli);
+$catImg = getTopicImg($cat, $pMysqli);
 
 $topicImageElement = "";
 if( !empty($catImg) ) {

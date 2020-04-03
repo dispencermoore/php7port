@@ -2,7 +2,7 @@
 
 <?php
     $updatePeriodInMonths = 1;
-    $r=mysqli_query(getCategoryUpdatesSQL($updatePeriodInMonths));
+    $r=mysqli_query($pMysqli, getCategoryUpdatesSQL($updatePeriodInMonths));
     $updates = [];
     $even = false;
     while( $row = mysqli_fetch_array($r) ) {
