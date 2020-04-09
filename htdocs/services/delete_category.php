@@ -24,14 +24,14 @@ if (isAdmin()) {
     $subcatString.=")";
 	
 
-	$result = mysql_query("UPDATE resource_category SET category_id=-1 WHERE category_id IN ".$subcatString);
+	$result = mysqli_query("UPDATE resource_category SET category_id=-1 WHERE category_id IN ".$subcatString);
 	if(!$result) {
 		echo("ERROR running UPDATE");
 	}
 
 	//Then actually delete all these categories
-	$r = mysql_query("DELETE FROM category WHERE id IN ".$subcatString);
-	$result = mysql_fetch_row($r);
+	$r = mysqli_query("DELETE FROM category WHERE id IN ".$subcatString);
+	$result = mysqli_fetch_row($r);
 	if(!$result) {
 		echo("ERROR running DELETE");
 	}

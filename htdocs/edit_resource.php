@@ -10,7 +10,7 @@
   <script src="/assets/js/jqBootstrapValidation.js"></script>
 
   <script>
-    var category_json = <?=buildJSTreeJson($cat, $pMysqli, true, 'approved_count')?>;
+    var category_json = <?=buildJSTreeJson($cat, $pmysqli, true, 'approved_count')?>;
   </script>
 
 
@@ -18,8 +18,8 @@
 <?php
 $id = $_GET['id'];
 
-$r = mysql_query("SELECT * FROM resource WHERE id = ".$id);
-$resource = mysql_fetch_array($r);
+$r = mysqli_query("SELECT * FROM resource WHERE id = ".$id);
+$resource = mysqli_fetch_array($r);
 
 ?>
   
@@ -104,8 +104,8 @@ $resource = mysql_fetch_array($r);
            <?php
               function checkedCode(){
                 $id = $_GET['id'];
-                $r = mysql_query("SELECT `resource_type` FROM resource WHERE id = $id");
-                $row = mysql_fetch_array($r);
+                $r = mysqli_query("SELECT `resource_type` FROM resource WHERE id = $id");
+                $row = mysqli_fetch_array($r);
                 $resource_type = $row['resource_type'];
                 if(strpos($resource_type, 'Code') !== false){
                   return "checked";
@@ -116,8 +116,8 @@ $resource = mysql_fetch_array($r);
 
               function checkedService(){
                 $id = $_GET['id'];
-                $r = mysql_query("SELECT `resource_type` FROM resource WHERE id = $id");
-                $row = mysql_fetch_array($r);
+                $r = mysqli_query("SELECT `resource_type` FROM resource WHERE id = $id");
+                $row = mysqli_fetch_array($r);
                 $resource_type = $row['resource_type'];
                 if(strpos($resource_type, 'Service') !== false){
                   return "checked";
@@ -128,8 +128,8 @@ $resource = mysql_fetch_array($r);
 
               function checkedData(){
                 $id = $_GET['id'];
-                $r = mysql_query("SELECT `resource_type` FROM resource WHERE id = $id");
-                $row = mysql_fetch_array($r);
+                $r = mysqli_query("SELECT `resource_type` FROM resource WHERE id = $id");
+                $row = mysqli_fetch_array($r);
                 $resource_type = $row['resource_type'];
                 if(strpos($resource_type, 'Data') !== false){
                   return "checked";
@@ -140,8 +140,8 @@ $resource = mysql_fetch_array($r);
 
               // function isChecked(){
                 // $id = $_GET['id'];
-                // $r = mysql_query("SELECT `resource_type` FROM resource WHERE id = $id");
-                // $row = mysql_fetch_array($r);
+                // $r = mysqli_query("SELECT `resource_type` FROM resource WHERE id = $id");
+                // $row = mysqli_fetch_array($r);
                 // $resource_type = $row['resource_type'];
                 // if(strpos($resource_type, 'Code') == true || strpos($resource_type, 'Service') == true || strpos($resource_type, 'Data') == true){
                   // return "";                  
@@ -195,10 +195,10 @@ $resource = mysql_fetch_array($r);
       
 <?php
   $categories = '';
-  $rs = mysql_query("SELECT c.* FROM resource_category rc ".
+  $rs = mysqli_query("SELECT c.* FROM resource_category rc ".
                     "LEFT JOIN category c ON rc.category_id=c.id ".
                     "WHERE rc.resource_id = " . $resource['id'] );
-  while ($cat = mysql_fetch_array($rs)) {
+  while ($cat = mysqli_fetch_array($rs)) {
     $categories .= '<a class="category" data-catid="'.$cat['id'].'" onclick="return removeMe(this);">'
                    .'['.$cat['name'].'] </a>';
   }
@@ -239,8 +239,8 @@ $resource = mysql_fetch_array($r);
 
 <?php
   $submitter = 'N/A';
-  $rs = mysql_query("SELECT * FROM user WHERE id = " . $resource['submitter_id'] );
-  $user = mysql_fetch_array($rs);
+  $rs = mysqli_query("SELECT * FROM user WHERE id = " . $resource['submitter_id'] );
+  $user = mysqli_fetch_array($rs);
   if( $user ) {
     $submitter = '<div>'.$user['name'].'</div>'.'<img src="'.$user['image_url'].'">';
   }

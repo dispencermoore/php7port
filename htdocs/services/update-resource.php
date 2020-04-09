@@ -11,14 +11,14 @@ if( !empty($_POST['id'])
 //&&  !empty($_POST['license'])
 ) {
 
-//	$result = mysql_query("SELECT * FROM resource_type WHERE name='$_POST[resource]'");
-//	$row = mysql_fetch_array($result);
+//	$result = mysqli_query("SELECT * FROM resource_type WHERE name='$_POST[resource]'");
+//	$row = mysqli_fetch_array($result);
 //	$resource = $row['id'];
-//	$result = mysql_query("SELECT * FROM license_type WHERE name='$_POST[license]'");
-//	$row = mysql_fetch_array($result);
+//	$result = mysqli_query("SELECT * FROM license_type WHERE name='$_POST[license]'");
+//	$row = mysqli_fetch_array($result);
 //	$license = $row['id'];
-//	$result = mysql_query("SELECT * FROM significance_type WHERE name='$_POST[significance]'");
-//	$row = mysql_fetch_array($result);
+//	$result = mysqli_query("SELECT * FROM significance_type WHERE name='$_POST[significance]'");
+//	$row = mysqli_fetch_array($result);
 //	$significance = $row['id'];
 
 	$id = $_POST['id'];
@@ -50,20 +50,20 @@ if( !empty($_POST['id'])
       .", last_edited_date=now()"
       ." WHERE id=$id";
 
-	$result = mysql_query($updateSql);
+	$result = mysqli_query($updateSql);
 
      //Then logs the edit
   $user_id = $_SESSION["user"]->id;
   
-  $r = mysql_query("SELECT `name` FROM user WHERE id = $user_id"); 
-  $row = mysql_fetch_array($r);
+  $r = mysqli_query("SELECT `name` FROM user WHERE id = $user_id"); 
+  $row = mysqli_fetch_array($r);
   $user_name = $row['name'];
 
-  $r = mysql_query("SELECT `name` FROM resource WHERE id = $id"); 
-  $row = mysql_fetch_array($r);
+  $r = mysqli_query("SELECT `name` FROM resource WHERE id = $id"); 
+  $row = mysqli_fetch_array($r);
   $entry_name = $row['name'];
 
-  $r = mysql_query("INSERT INTO user_action (user_id, username, entry_id, entry_name, action) VALUES ('".$user_id."','".$user_name."','".$id."','".$entry_name."','edit')");
+  $r = mysqli_query("INSERT INTO user_action (user_id, username, entry_id, entry_name, action) VALUES ('".$user_id."','".$user_name."','".$id."','".$entry_name."','edit')");
 
   if(!$r) {
       halt(500, "ERROR running UPDATE");
@@ -72,21 +72,21 @@ if( !empty($_POST['id'])
   
   
     // Manage resource categories
-    mysql_query("DELETE FROM resource_category WHERE resource_id = $id");
+    mysqli_query("DELETE FROM resource_category WHERE resource_id = $id");
   
   	$categories = addslashes($_POST['categories']);  
     $catPieces = explode(',', $categories);
     foreach($catPieces as $cat) {
-      mysql_query("INSERT INTO resource_category(resource_id,category_id)"
+      mysqli_query("INSERT INTO resource_category(resource_id,category_id)"
                  ." VALUES($id,'$cat')");
     }
 
 //	if($_POST['drilldown'] != '') {
-//		mysql_query("UPDATE resource_category SET category_id = $_POST[drilldown] where resource_id = '$id'");
+//		mysqli_query("UPDATE resource_category SET category_id = $_POST[drilldown] where resource_id = '$id'");
 //	}
 //		
-	$r = mysql_query("SELECT * FROM resource WHERE id ='$id'");
-  	$row = mysql_fetch_array($r);
+	$r = mysqli_query("SELECT * FROM resource WHERE id ='$id'");
+  	$row = mysqli_fetch_array($r);
 //  	if($result && $row['approved_date'] == '')
 //  		redirect("/pending.php");
 //	else if($result)

@@ -37,7 +37,7 @@
 
 	if(isset($_POST['edited'])){
 		$description = addslashes($_POST['edited']);
-		$result = mysql_query("UPDATE category SET description='$description' WHERE name='$resourcetitle'");
+		$result = mysqli_query("UPDATE category SET description='$description' WHERE name='$resourcetitle'");
 		if($result) {
 			// $message = "<div class='alert alert-success'><strong>Thanks!</strong> " . $resourcetitle . " description has been updated.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";
 			redirect(str_replace("edit_category.php", "", $activepage));

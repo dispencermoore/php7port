@@ -7,10 +7,10 @@ function tricklePendingCountUpdate($cat_id, &$updatedCats) {
     $updatedCats[$cat_id] = true;
     
     // update for current category
-    mysql_query("UPDATE category
+    mysqli_query("UPDATE category
                  SET pending_count=pending_count+1
                  WHERE id=$cat_id");
-    $r=mysql_query("SELECT parent FROM category WHERE id=$cat_id");
+    $r=mysqli_query("SELECT parent FROM category WHERE id=$cat_id");
     while( $row = mysql_fetch_array($r) ) {
       tricklePendingCountUpdate($row{'parent'}, $updatedCats);
     }
@@ -42,16 +42,16 @@ if( !empty($_POST['dbname'])
   VALUES ('$dbname', '$link', '$description', '$type', '$license', 
   $user_id, '$prog_lang', '$dataformat', '$paperurl', '$owner', '$author', now())";
 
-  $result = mysql_query($insertSql);
+  $result = mysqli_query($insertSql);
 
-  $id = mysql_insert_id();
+  $id = mysqli_insert_id();
 
   // Manage resource categories
   $categories = addslashes($_POST['categories']);  
   $catPieces = explode(',', $categories);
   $updatedCats = array();
   foreach($catPieces as $cat_id) {
-    mysql_query("INSERT INTO resource_category(resource_id,category_id)"
+    mysqli_query("INSERT INTO resource_category(resource_id,category_id)"
                ." VALUES($id,'$cat_id')");
     tricklePendingCountUpdate($cat_id, $updatedCats);
   }

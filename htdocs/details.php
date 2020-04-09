@@ -292,12 +292,12 @@ $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
             <!-- previous comments -->
 <?php 
 
-            $sql = mysql_query("SELECT * FROM comments c
+            $sql = mysqli_query("SELECT * FROM comments c
                                 LEFT JOIN user u ON c.userid=u.id
                                 WHERE resource_id = ".$resourceRs{'id'}
                               ." ORDER BY c.date DESC")
-                    or die(mysql_error());;
-            while($affcom = mysql_fetch_assoc($sql)){
+                    or die(mysqli_error());;
+            while($affcom = mysqli_fetch_assoc($sql)){
               $commenter_name = $affcom['name'];
               $commenter_img = $affcom['image_url'];
               $commenter_profile = $affcom['profile_url'];

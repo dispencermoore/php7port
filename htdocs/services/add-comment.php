@@ -11,7 +11,7 @@ if( isLoggedIn()
     $user_id = $_SESSION["user"]->id;
 
     //insert the comment in the database
-    mysql_query("INSERT INTO comments (comment, resource_id, userid)
+    mysqli_query("INSERT INTO comments (comment, resource_id, userid)
                 VALUES('$comment', '$resource_id', '$user_id')");
     if(!mysql_errno()){
       mysql_query(

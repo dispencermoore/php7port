@@ -13,6 +13,7 @@ $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database"
 $pMysqli = true;
 $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
 
+
 #function SPmysqli(){
 # global $pMysqli;
 #}
@@ -58,7 +59,7 @@ function loginUser($response, $pMysqli) {
     
     $r = mysqli_query($pMysqli,"SELECT * FROM user WHERE provider_id = '".$provider_id."'"
                      ." AND provider_type = '".$provider_type."'");
-    if($row = mysqli_fetch_array($r)) {
+    if($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
       // if exists, update fields that may have changed along with lastLogin
       mysqli_query($pMysqli,"UPDATE user SET"
                   ." name = '".$user->name."', "
@@ -115,33 +116,41 @@ function getCategoryUpdatesSQL($withinMonths) {
 }
 
 function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level, $pMysqli) {
-  $id = $row['id'];
-  $name = $row['name'];
+  $id = isset($row['id']) ? $row['id'] : '';
+  $name = isset($row['name']) ? $row['name'] : '';
   if( $countOf == 'pending_count' ) {
     $name .= ' (' . $row{'pending_count'} . ')';    
   } else
   if( $countOf == 'approved_count' ) {
-    $name .= ' (' . $row{'approved_count'} . ')';
+    $name .= isset($row{'approved_count'}) ? $row{'approved_count'} : '';
+    //$name .= ' (' . $row{'approved_count'} . ')';
   }
   $icon = ($level == 0) ? 'glyphicon-plus' : 'glyphicon-minus';
 
   $children = "";
   $filter_id = 0;
+  //echo $id;
   $sqlQuery = "SELECT * from category where parent=".$id;
+  //echo $id;
   if (!isAdmin()) {
       $sqlQuery.= " AND id > 0";
   }
   $sqlQuery.= " ORDER BY id";
 
   $r_sub = mysqli_query($pMysqli, $sqlQuery);
-  if( mysqli_num_rows($r_sub) == 0 and mysqli_num_rows($r_sub) < 153) {
+
+ //if (!$pMysqli -> query( "SELECT * from category where parent=".$id)) {
+ // echo("Error description: " . $pMysqli -> error);
+//}
+
+  if((mysqli_num_rows($r_sub) == 0 || !$r_sub) and mysqli_num_rows($r_sub) < 153) {
     $topic = "<li><a tabindex='-1' href='$catHref?cat=$id'>$name</a></li>";
   } else {
     $topic = "<li class='dropdown-submenu'>
                 <a tabindex='-1' href='$catHref?cat=$id'>$name</a>
               ";
     $topic .= "<ul class='dropdown-menu'>";
-    while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_NUM)) {
+    while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_ASSOC)) {
       $topic .= writeTopicEntry( $catHref, $row_sub, $countOf, $selectedCat, $level+1, $pMysqli);
     }
       $topic .= "</ul>";
@@ -172,7 +181,7 @@ function createCategoryEntry($row, $countOf, $pMysqli) {
   $sqlQuery.= " ORDER BY id";
 
   $r_sub = mysqli_query($pMysqli, $sqlQuery);
-  while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_NUM)) {
+  while ($row_sub = mysqli_fetch_array($r_sub, MYSQLI_ASSOC)) {
       if(!empty($children)) {
           $children .= ",";
       }
@@ -210,7 +219,7 @@ function buildJSTreeJson($cat, $openNode, $countOf, $pMysqli) {
   $sqlQuery.= " ORDER BY id";
   $r = mysqli_query($pMysqli, $sqlQuery);
 
-  while ($row = mysqli_fetch_array($r)) {
+  while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
       if(!empty($data)) {
           $data .= ",";
       }
@@ -225,7 +234,7 @@ function buildJSTreeJson($cat, $openNode, $countOf, $pMysqli) {
       $opencat = "0";
       if(isset($_GET['id']) && $_GET['id'] != '') {
         $r = mysqli_query($pMysqli, "SELECT category_id from resource_category where resource_id=".$_GET['id']);
-        $row = mysqli_fetch_array($r);
+        $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
         if(!is_null($row)) {
             $opencat = "\"".$row{'category_id'}."\"";
         }
@@ -250,7 +259,7 @@ function getTopicName($cat, $pMysqli) {
   }
   else {
     $r = mysqli_query($pMysqli,  "SELECT name from category where id=".$cat);
-    $row = mysqli_fetch_array($r);
+    $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
     if(is_null($row)) {
       $resourcetitle = "Artificial Intelligence";
     }
@@ -271,7 +280,7 @@ function getTopicDesc($cat, $pMysqli) {
   }
   else {
     $r = mysqli_query($pMysqli,"SELECT id, name, description, parent from category where id=".$cat);
-    $row = mysqli_fetch_array($r);
+    $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
     if(is_null($row)) {
         $resourcedescription = "The category does not exist.";
     }
@@ -291,7 +300,7 @@ function getTopicImg($cat, $pMysqli) {
   }
 //  else {
     $r = mysqli_query($pMysqli, "SELECT image from category where id=".$cat);
-    $row = mysqli_fetch_array($r, MYSQLI_NUM);
+    $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
     if(is_null($row)) {
       $img = "http://www.dailygalaxy.com/.a/6a00d8341bf7f753ef019affc63311970d-pi";
     }
@@ -306,7 +315,7 @@ function getTopicImg($cat, $pMysqli) {
 function getCategoryOptions($catId, $nameprefix, $pMysqli) {
   $options = "";
   $result = mysqli_query($pMysqli,"SELECT * FROM category WHERE id != -1 AND parent=".$catId);
-  while($row = mysqli_fetch_array($result)){
+  while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
     $options .= "<option value='".$row['id']."'>".$nameprefix." ".$row['name']."</option>";
     $options .= getCategoryOptions($row['id'], $nameprefix." ".$row['name']." &gt; ");
   }
@@ -349,7 +358,7 @@ function getSubCats($catId, $pMysqli) {
   $subcats = array();
 
   $r = mysqli_query($pMysqli, "SELECT id FROM category WHERE parent=".$catId);
-  while ($row = mysqli_fetch_array($r)) {
+  while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
     $subcats[] = $row{'id'};
 
     $subSubCats = getSubCats($row{'id'}, $pMysqli);
@@ -387,11 +396,11 @@ function countResults($subcatString, $query, $pMysqli) {
     $sqlStatement.=" ORDER BY num_likes DESC";
   }
 
-  echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
-  echo $sqlStatement;
-  echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
+  //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
+  // echo $sqlStatement;
+  //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~';
   $r = mysqli_query($pMysqli, $sqlStatement); //first parameter has to be a mysqli thing?
-  $row = mysqli_fetch_row($r);
+  $row = mysqli_fetch_row($r); //removed MYSQLI_ASSOC after $r
   return $row[0];
 }
 
@@ -433,7 +442,7 @@ function countPendingResults($subcatString, $pMysqli) {
     WHERE r.approved_date IS NULL
     AND rc.category_id IN $subcatString
      ");
-  $row = mysqli_fetch_row($r);
+  $row = mysqli_fetch_row($r, MYSQLI_ASSOC);
   return $row[0];
 }
 

@@ -18,8 +18,7 @@
   if( !isset($countOf) ) { $countOf = 'approved_count'; }
   if( !isset($catHref) ) { $catHref = '/'; }
 
-
-  $sqlQuery = "SELECT * from category where parent=".$id;
+  $sqlQuery = "SELECT * from category where parent=0".$id;
   //echo $sqlQuery;
   if (!isAdmin()) {
       $sqlQuery.= " AND id > 0";
@@ -27,6 +26,7 @@
   $sqlQuery.= " ORDER BY id";
   $r = mysqli_query($pMysqli, $sqlQuery);
   $topicHtml = "";
+
   while ($catrow = mysqli_fetch_array($r)) {
     $subtopicHtml = writeTopicEntry($catHref, $catrow, $countOf, $cat, 0, $pMysqli);
     $topicHtml .= $subtopicHtml;

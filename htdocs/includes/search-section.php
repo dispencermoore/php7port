@@ -11,7 +11,7 @@
                 <input name='cat' type='hidden' value="<?= $cat ?>"></input>
                 <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/category.php'); ?>
                 <input id="search-input" type="text" class="form-control"
-                       name='q' value="<?= $query ?>" 
+                       name='q' value="<?= $sqlQuery ?>" 
                        placeholder="Search within <?= $catTitle ?>">
                 <span class="input-group-addon">
                   <button type="submit" class="btn btn-danger">Search</button>

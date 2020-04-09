@@ -20,7 +20,7 @@
   }
   if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
     if(!empty($catname) && $drilldown != "") {
-      $result = mysql_query("INSERT INTO category (name, parent) VALUES ('$catname', $drilldown)");
+      $result = mysqli_query("INSERT INTO category (name, parent) VALUES ('$catname', $drilldown)");
 
       if($result)
         $message = "<div class='alert alert-success'><strong>Thanks!</strong> " . $catname . " has been added to the Hierarchy.<button type='button' class='close' data-dismiss='alert'>&times;</button></div>";

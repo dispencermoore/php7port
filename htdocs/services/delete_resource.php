@@ -15,9 +15,9 @@ function tricklePendingCountUpdate($cat_id, &$updatedCats, $pending) {
     }
     $sql .= " WHERE id=$cat_id";
     
-    mysql_query($sql);
-    $r=mysql_query("SELECT parent FROM category WHERE id=$cat_id");
-    while( $row = mysql_fetch_array($r) ) {
+    mysqli_query($sql);
+    $r=mysqli_query("SELECT parent FROM category WHERE id=$cat_id");
+    while( $row = mysqli_fetch_array($r) ) {
       tricklePendingCountUpdate($row{'parent'}, $updatedCats);
     }
   }
@@ -33,28 +33,28 @@ if (isAdmin()) {
   
   if(!empty($id)) {
   	//Find out if this is a pending resource
-  	$r = mysql_query("SELECT approved_date FROM resource WHERE id = ".$id);
-  	$row = mysql_fetch_array($r);
+  	$r = mysqli_query("SELECT approved_date FROM resource WHERE id = ".$id);
+  	$row = mysqli_fetch_array($r);
   	if($row['approved_date'] == ''){
       $pending = true;
   	}
 
     // Manage resource categories
     $updatedCats = array();
-    $r=mysql_query("SELECT category_id FROM resource_category WHERE resource_id=$id");
-    while( $row = mysql_fetch_array($r) ) {
+    $r=mysqli_query("SELECT category_id FROM resource_category WHERE resource_id=$id");
+    while( $row = mysqli_fetch_array($r) ) {
       tricklePendingCountUpdate($row{'category_id'}, $updatedCats, $pending);
     }
     
     //First delete from the resource_category table
-	$r = mysql_query("DELETE FROM resource_category WHERE resource_id = ".$id);
+	$r = mysqli_query("DELETE FROM resource_category WHERE resource_id = ".$id);
 	if(!$r) {
       echo("ERROR running UPDATE");
       $hasError = true;
 	}
 
     //Then delete this actual entry
-	$r = mysql_query("DELETE FROM resource WHERE id = ".$id);
+	$r = mysqli_query("DELETE FROM resource WHERE id = ".$id);
 	if(!$r) {
       echo("ERROR running UPDATE");
       $hasError = true;

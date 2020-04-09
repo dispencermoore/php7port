@@ -1,0 +1,5 @@
+{
+    "require-dev": {
+        "etsy/phan": "^2.6"
+    }
+}
