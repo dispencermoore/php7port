@@ -11,7 +11,7 @@ $conn = mysqli_init();
 $pMysqli = mysqli_real_connect($conn, $hostname, $username, $password, $database);
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database");
 $pMysqli = true;
-$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
 
 #function SPmysqli(){
@@ -335,7 +335,7 @@ function buildCategorySelect($withAI, $name = 'drilldown') {
 }
 
 function buildSubCatSqlCondition($cat) {
-  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+  $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   //first get all the categories that we should be searching on
   if(empty($cat)) {$cat = 0;}
   $subcats = getSubCats($cat, $pMysqli);
@@ -355,6 +355,7 @@ function buildSubCatSqlCondition($cat) {
 }
 
 function getSubCats($catId, $pMysqli) {
+  $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   $subcats = array();
 
   $r = mysqli_query($pMysqli, "SELECT id FROM category WHERE parent=".$catId);
@@ -377,8 +378,8 @@ function getSubCats($catId, $pMysqli) {
  * Search stuff
  ****************************************/
 
-function countResults($subcatString, $query, $pMysqli) {
-  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+function countResults($subcatString, $query, $pMysqli) { 
+ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   $sqlStatement = "
     SELECT count(DISTINCT r.id)
       FROM resource r
@@ -387,7 +388,7 @@ function countResults($subcatString, $query, $pMysqli) {
     AND rc.category_id IN $subcatString
     ";
   if(!empty($query)) {
-    $query = mysqli_escape_string($query); 
+    $query = mysqli_escape_string($pMysqli, $query); 
 //    $sqlStatement.=" AND (r.name like '%".$query."%' OR r.description like '%".$query."%')";
     $queryCond = "MATCH(name,description,owner,author) AGAINST ('$query' IN BOOLEAN MODE)";
     $sqlStatement.=" AND $queryCond";
@@ -405,7 +406,7 @@ function countResults($subcatString, $query, $pMysqli) {
 }
 
 function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
-
+ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   $sqlStatement="
   SELECT DISTINCT r.id, r.name, r.description, 
          r.owner, r.link, r.paper_url,
@@ -421,7 +422,7 @@ function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
   ";
 
   if(!empty($query)) {
-    $query = mysqli_escape_string($query);
+    $query = mysqli_escape_string($pMysqli, $query);
 //    $sqlStatement.=" AND (r.name like '%".$query."%' OR r.description like '%".$query."%')";
     $queryCond = "MATCH(r.name,description,owner,author) AGAINST ('$query' IN BOOLEAN MODE)";
     $sqlStatement.=" AND $queryCond";

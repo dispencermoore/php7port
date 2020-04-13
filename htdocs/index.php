@@ -106,7 +106,7 @@ if(isAdmin()) {
           <span class="editor-heading"><b><?= $catTitle ?> Editors:</b> </span>
 <?php
           $isFirst = true;
-          while($editorRow = mysql_fetch_array($editorRs)) {
+          while($editorRow = mysqli_fetch_array($editorRs)) {
             $editorName = $editorRow{'name'};
 
             if( $isFirst ) {
@@ -162,7 +162,7 @@ if(isAdmin()) {
 
 <?php
         // ########## print search results
-$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
         $count = 0;
         $sqlStatement = getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS);
 

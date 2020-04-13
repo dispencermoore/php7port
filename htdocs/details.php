@@ -20,7 +20,7 @@
   </script>
 <?php
 
-$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   incrementViewCount($id,$pMysqli);
 
   $catTitle = getTopicName($cat, $pMysqli);
@@ -291,8 +291,8 @@ $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
 
             <!-- previous comments -->
 <?php 
-
-            $sql = mysqli_query("SELECT * FROM comments c
+ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+            $sql = mysqli_query($pMysqli, "SELECT * FROM comments c
                                 LEFT JOIN user u ON c.userid=u.id
                                 WHERE resource_id = ".$resourceRs{'id'}
                               ." ORDER BY c.date DESC")
