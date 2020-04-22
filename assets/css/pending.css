@@ -1,0 +1,19 @@
+#topic-desc {
+  padding: 20px 0 40px 0;
+}
+
+.editBtn-group {
+  float: right;
+}
+
+.editBtn {
+  padding-left: 10px;
+}
+
+.approveSuccess {
+  background-color: #dff0d8 !important;
+}
+
+.deleteSuccess {
+  background-color: rgba(255, 2, 2, 0.37) !important;
+}
