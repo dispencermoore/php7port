@@ -6,20 +6,19 @@ session_start();
 
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
-//$conn = mysqli_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
-$conn = mysqli_init();
-$pMysqli = mysqli_real_connect($conn, $hostname, $username, $password, $database);
-$db = mysqli_select_db($conn, $database) or die("Unable to connect to $database");
-$pMysqli = true;
+$conn = mysqli_init(); 
+$_SESSION["connection"] = mysqli_real_connect($conn, $hostname, $username, $password, $database); 
+$db = mysqli_select_db($conn, $database) or die("Unable to connect to $database"); 
+$pMysqli = true; 
 $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
-
 
 #function SPmysqli(){
 # global $pMysqli;
 #}
-
 #SPmysqli();
-
+//if (isset($_SESSION["user"]->commentCT){
+//$_SESSION["user"]->commentCT = 5;
+//}
 function redirect($url, $permanent = false) {
   if ($permanent) {
     header('HTTP/1.1 301 Moved Permanently');

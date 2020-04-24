@@ -195,7 +195,7 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
             if( isLoggedIn() ) {
               $user_id = $_SESSION["user"]->id;
 
-              $likedRs = mysqli_query("
+              $likedRs = mysqli_query( $pMysqli, "
                 SELECT COUNT(*) as cnt FROM resource_likes
                 WHERE resource_id=".$row{'id'}."
                 AND user_id=$user_id

@@ -32,6 +32,8 @@
 //              $('.new-com-bt').fadeIn('fast');
 //          });
       });
+var getNAME;
+
 var UComCount = 5;
       // on post comment click 
       $('.bt-add-com').click(function(){
@@ -39,7 +41,7 @@ var UComCount = 5;
         var comCountElm = $('#comment-count');
         var comCount = parseInt(comCountElm.text());
         var resource_id = $(this).attr('data-resource-id');
-
+        var getNAME = document.getElementById('name-area').value;
         if( !theCom.val()){
           alert('You need to write a comment!'); 
         }
@@ -52,11 +54,14 @@ var UComCount = 5;
               type: "POST",
               url: "/services/add-comment.php",
               data: 'act=add-com'
+
                     +'&resource_id='+resource_id
-                    +'&comment='+theCom.val(),
+                    +'&comment='+theCom.val()
+                    +'&name='+getNAME,
+
               success: function(html){
                 comCountElm.text(comCount+1);
-                alert("You have " + UComCount + " comments remaining");
+                alert(getNAME + ", you have " + UComCount + " comments remaining");
                 theCom.val('');
                 $(that).css({opacity:0.6});
                 

@@ -284,8 +284,8 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
             <!-- comment form -->
             <div class="new-com-cnt">
                  <form>
-             <label for="fname">Name:</label>
-             <input type="text" id="fname" name="fname">
+             <label for="USRname">Name:</label>
+             <input type="text" id="name-area" name="name-area"></input>
            </form>
               <textarea id="comment-area" class="the-new-com"></textarea>
               <div data-resource-id="<?=$resourceRs{'id'}?>" class="bt-add-com">Post comment</div>

@@ -5,16 +5,21 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 //) {
 $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
+$_name;
   extract($_POST);
   if($_POST['act'] == 'add-com'):
     $comment = htmlentities($comment);
     $resource_id = htmlentities($resource_id);
+    $_SESSION["user"]->name =  htmlentities($name);
+    $_name = htmlentities($name);
+    echo (htmlentities($name));
     $user_id = $_SESSION["user"]->id;
+  
 
     //insert the comment in the database
     mysqli_query($pMysqli, "INSERT INTO comments (comment, resource_id, userid)
-                VALUES('$comment', '$resource_id', '$user_id')");
-   // if(!mysqli_errno()){
+       VALUES('$comment', '$resource_id','$user_id')");
+       if(!mysqli_errno($_SESSION["connection"])){
       mysqli_query($pMysqli, 
         "UPDATE resource SET"
         ." num_comments = num_comments + 1"
@@ -24,7 +29,7 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
     <div class="cmt-cnt">
       <img src="<?= $_SESSION["user"]->image ?>"/>
       <div class="thecom">
-        <h5><?= $_SESSION["user"]->name ?></h5>
+        <h5><?= $_name//$_SESSION["user"]->name ?></h5>
         <span class="com-dt"><?= date('d-m-Y H:i') ?></span>
         <br/>
         <p><?= $comment ?></p>
@@ -32,7 +37,7 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
     </div><!-- end "cmt-cnt" -->
 
 <?php
-//    }
+   }
   endif;
 //} else {
 //  echo "You must be logged in";
