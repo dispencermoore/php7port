@@ -162,7 +162,7 @@ if(isAdmin()) {
 
 <?php
         // ########## print search results
-$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
         $count = 0;
         $sqlStatement = getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS);
 

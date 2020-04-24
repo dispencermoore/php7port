@@ -3,7 +3,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 
 //if( isLoggedIn()
 //) {
-$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
 
 $_name;
   extract($_POST);
@@ -19,7 +19,7 @@ $_name;
     //insert the comment in the database
     mysqli_query($pMysqli, "INSERT INTO comments (comment, resource_id, userid)
        VALUES('$comment', '$resource_id','$user_id')");
-       if(!mysqli_errno($_SESSION["connection"])){
+      // if(!mysqli_errno($_SESSION["connection"])){
       mysqli_query($pMysqli, 
         "UPDATE resource SET"
         ." num_comments = num_comments + 1"
@@ -29,7 +29,7 @@ $_name;
     <div class="cmt-cnt">
       <img src="<?= $_SESSION["user"]->image ?>"/>
       <div class="thecom">
-        <h5><?= $_name//$_SESSION["user"]->name ?></h5>
+        <h5><?= $_SESSION["user"]->name ?></h5>
         <span class="com-dt"><?= date('d-m-Y H:i') ?></span>
         <br/>
         <p><?= $comment ?></p>
@@ -37,7 +37,7 @@ $_name;
     </div><!-- end "cmt-cnt" -->
 
 <?php
-   }
+   //}
   endif;
 //} else {
 //  echo "You must be logged in";
