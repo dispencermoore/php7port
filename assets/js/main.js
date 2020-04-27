@@ -17,6 +17,8 @@ function categoryClicked(id, name) {
 	loaded = true;
 }
 
+var userLikeCount;
+
 function attachEvents() {
   $('.like').on('click', function() {
     var resource_id = $(this).attr('data-resource-id');

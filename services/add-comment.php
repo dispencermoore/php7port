@@ -10,11 +10,12 @@ $_name;
   if($_POST['act'] == 'add-com'):
     $comment = htmlentities($comment);
     $resource_id = htmlentities($resource_id);
+    $_SESSION["user"] = new \stdClass();
     $_SESSION["user"]->name =  htmlentities($name);
+
     $_name = htmlentities($name);
-    echo (htmlentities($name));
+    $_SESSION["user"]->id = 10;
     $user_id = $_SESSION["user"]->id;
-  
 
     //insert the comment in the database
     mysqli_query($pMysqli, "INSERT INTO comments (comment, resource_id, userid)
@@ -24,6 +25,7 @@ $_name;
         "UPDATE resource SET"
         ." num_comments = num_comments + 1"
         ." WHERE id=$resource_id");
+    $_SESSION["user"]->comcnt = $_SESSION["user"]->comcnt - 1;
   ?>
 
     <div class="cmt-cnt">

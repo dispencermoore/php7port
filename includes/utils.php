@@ -12,6 +12,11 @@ $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database"
 $pMysqli = true; 
 $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
 
+if(!isset($_SESSION["user"]->comcnt))
+{
+  $_SESSION["user"]->comcnt = 5;
+}
+
 #function SPmysqli(){
 # global $pMysqli;
 #}
@@ -93,7 +98,7 @@ function isLoggedIn() {
 }
 
 function isAdmin() {
-  if( isset($_SESSION["user"]) ) {
+  if( isset($_SESSION["user"]) && isset($_SESSION["user"]->privilege)) {
     return ($_SESSION["user"]->privilege == 'admin');
   }
   return false;

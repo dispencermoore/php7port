@@ -51,7 +51,7 @@
                 </li>
               <?php } ?>
               </ul>              
-          </li>   -->        
+          </li>      
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

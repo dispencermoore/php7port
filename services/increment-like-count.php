@@ -11,21 +11,22 @@ if( !empty($_GET['resource_id'])
 
 
   $insertSql =
-    "INSERT INTO resource_likes(resource_id, user_id)"
-    ." VALUES($resource_id,$user_id)";
+    "INSERT INTO resource_likes(resource_id)"
+    ." VALUES($resource_id)";
 
   mysqli_query($insertSql);
   
   $numRowsInserted = mysqli_affected_rows();
-  
-  if( $numRowsInserted == 1 ) {
+
+     if( $numRowsInserted == 1 ) {
     $updateSql =
       "UPDATE resource SET"
       ." num_likes = num_likes + 1"
       ." WHERE id=$resource_id";
 
     mysqli_query($updateSql);
-    
+
+  
 //    echo 'Like recorded and incremented';
     header('HTTP/1.1 200 OK');
   } else {
