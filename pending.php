@@ -214,7 +214,7 @@ if(isAdmin()) {
           <tr id="resource-<?=$row{'id'}?>" class="resource-container">
             <td class="meta-resource-column">
               <span class="glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true" data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></span>
-              <a href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
+              <a href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments" onclick = "PasslikeCNT()">
                   <span class="glyphicon glyphicon-comment comment" aria-hidden="true" data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_comments'}?></span>
               </a>
             </td>

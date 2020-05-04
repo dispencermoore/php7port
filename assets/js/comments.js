@@ -33,8 +33,10 @@
 //          });
       });
 var getNAME;
-
-var UComCount = 5;
+if (PcomCount !== "undefined"){
+PcomCount = 5;
+}
+alert (PcomCount);
       // on post comment click 
       $('.bt-add-com').click(function(){
         var theCom = $(this).siblings('.the-new-com');
@@ -45,10 +47,10 @@ var UComCount = 5;
         if( !theCom.val()){
           alert('You need to write a comment!'); 
         }
-          if (UComCount <= 0){
+          if (PcomCount <= 0){
             alert("you have used all your comments for today");
           }else{
-            UComCount = UComCount - 1;
+            PcomCount = PcomCount - 1;
           var that = this;
           $.ajax({
               type: "POST",
@@ -57,11 +59,12 @@ var UComCount = 5;
 
                     +'&resource_id='+resource_id
                     +'&comment='+theCom.val()
-                    +'&name='+getNAME,
-
+                    +'&name='+getNAME
+                    +'&ScomCount='+PcomCount,
+                    
               success: function(html){
                 comCountElm.text(comCount+1);
-                alert(getNAME + ", you have " + UComCount + " comments remaining");
+                alert(getNAME + ", you have " + PcomCount + " comments remaining");
                 theCom.val('');
                 $(that).css({opacity:0.6});
                 

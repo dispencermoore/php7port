@@ -34,14 +34,11 @@
             <ul class="inverse-dropdown dropdown-menu" role="menu">
               <?php if( !isLoggedIn() ) { ?>
                 <li class="hide-after-auth">
-                  <a href="/auth/twitter">
-                    <img id="twitterLoginBtn" src="/assets/img-3rd/sign-in-twitter.png">
-                  </a>
-                </li>
-                <li class="hide-after-auth">
-                  <a href="/auth/facebook">
-                    <img id="facebookLoginBtn" src="/assets/img-3rd/sign-in-facebook.png">
-                  </a>
+                 <form>
+             <label name="name-area" style= "margin: 5px 10px" for="USRname">Name:</label>
+             <input type="text" id="name-area" name="name-area" style= "margin: 5px 10px" ></input>
+             <button class=btn style = "background-color: #337ab7"> Submit</button>
+           </form>
                 </li>
               <?php } else { ?>
                 <li class="show-after-auth">
@@ -51,7 +48,11 @@
                 </li>
               <?php } ?>
               </ul>              
+<<<<<<< HEAD
+          </li>     
+=======
           </li>      
+>>>>>>> 9bf7901b9262e1dd1405b138271059f53d9379cc
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

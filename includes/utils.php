@@ -1,7 +1,6 @@
-session_start();
+
 
 <?php ini_set('“memory_limit”','”16M“');
-
 
 
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
@@ -31,6 +30,63 @@ function redirect($url, $permanent = false) {
   header('Location: '.$url);
   exit();
 }
+$PcomCount;
+$PlikeCNT;
+$testy = "It worked";
+?>
+echo '<script type="text/JavaScript">  
+    var PcomCount = "<?php echo $PcomCount; ?>"; 
+    var PlikeCNT = "<?php echo $PlikeCNT; ?>"; 
+     </script>' ;
+
+             <script type="text/JavaScript">  
+    function testy(){
+    alert("The answer to all of your Prayers");
+    }
+
+    function LikeIncrementCNT(){
+      if (PlikeCNT >0 && PlikeCNT <=15) {
+        if (PlikeCNT >1){
+        SendLikeCNT();
+      }
+        if(PlikeCNT == 1){
+       // PlikeCNT = -1;
+        //SendLikeCNT();
+        //}
+        //if(PlikeCNt == -2){
+          alert("You have used your max amount of likes for today");
+          } 
+        }
+      //if (PLikeCNT <= 0){
+        //alert("You have used your max amount of likes for today");
+          //}
+      if (PlikeCNT == ""){
+        PlikeCNT = 16; 
+        SendLikeCNT();
+     }
+
+    }
+
+    function SendLikeCNT(){
+    PlikeCNT = PlikeCNT - 1;
+          //var that = this;
+          $.ajax({
+              type: "POST",
+              url: "/services/add-comment.php",
+              data: 'act=add-like'
+
+                    +'&SlikeCNT='+PlikeCNT,
+                    
+              success: function(html){
+                if (PlikeCNT > 1){
+                alert(" you have " + (PlikeCNT -1) + " likes remaining");
+              }
+            }
+            });
+        }
+     </script>' ;
+
+<?php
 
 /****************************************
  * User stuff

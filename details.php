@@ -129,9 +129,11 @@ $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
             $body = "$who the following comment about this post: ";
             $mail_link = 'mailto:'.$mailto.'?subject='.$subject.'&body='.$body;
         ?>
+
         <span class="glyphicon glyphicon-thumbs-up action-link like <?=$likedClass?>" aria-hidden="true" data-resource-id="<?=$resourceRs{'id'}?>"> <?=$resourceRs{'num_likes'}?></span>
-      
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="OpenAIResources">Tweet</a>
+
+        <a href="https://twitter.com/share"  onclick = "PasslikeCNT()" class="twitter-share-button" data-via="OpenAIResources">Tweet</a>
+    }
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         
         <a id="flag-resource" href="<?=$mail_link?>">

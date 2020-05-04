@@ -206,10 +206,14 @@ $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
               }
             }
 ?>
+
           <tr class="resource-container">
             <td class="meta-resource-column">
-              <span class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true" data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></span>
-              <a class="hover-show" href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
+              <span class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true" 
+                data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></span>
+                <button onclick = "LikeIncrementCNT()" ></button>
+              <a class="hover-show"  href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
+    
                   <span class="glyphicon glyphicon-comment comment" aria-hidden="true" data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_comments'}?></span>
               </a>
             </td>
