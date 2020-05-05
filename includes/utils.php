@@ -16,6 +16,21 @@ if(!isset($_SESSION["user"]->comcnt))
   $_SESSION["user"]->comcnt = 5;
 }
 
+if(!isset($_SESSION["user"]->name))
+{
+  $_SESSION["user"]->name = '';
+}
+
+if(!isset($_SESSION["user"]->id))
+{
+  $_SESSION["user"]->id = 0;
+}
+
+if(!isset($_SESSION["likedResources"]))
+{
+  $_SESSION["likedResources"] = array[];
+}
+
 #function SPmysqli(){
 # global $pMysqli;
 #}

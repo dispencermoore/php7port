@@ -48,11 +48,7 @@
                 </li>
               <?php } ?>
               </ul>              
-<<<<<<< HEAD
           </li>     
-=======
-          </li>      
->>>>>>> 9bf7901b9262e1dd1405b138271059f53d9379cc
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
