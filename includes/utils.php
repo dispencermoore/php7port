@@ -1,8 +1,4 @@
-
-
-<?php ini_set('“memory_limit”','”16M“');
-
-
+<?php //ini_set('“memory_limit”','”16M“');
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
 $conn = mysqli_init(); 
@@ -26,10 +22,10 @@ if(!isset($_SESSION["user"]->id))
   $_SESSION["user"]->id = 0;
 }
 
-if(!isset($_SESSION["likedResources"]))
-{
-  $_SESSION["likedResources"] = array[];
-}
+//if(!isset($_SESSION["likedResources"]))
+//{
+//  $_SESSION["likedResources"] = array[];
+//}
 
 #function SPmysqli(){
 # global $pMysqli;
