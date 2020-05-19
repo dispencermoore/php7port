@@ -20,7 +20,7 @@
   </script>
 <?php
 
-$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   incrementViewCount($id,$pMysqli);
 
   $catTitle = getTopicName($cat, $pMysqli);
@@ -287,7 +287,7 @@ $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
             <div class="new-com-cnt">
                  <form>
              <label for="USRname">Name:</label>
-             <input type="text" id="name-area" name="name-area"></input>
+             <input type="text" id="name-Area" name="name-Area"></input>
            </form>
               <textarea id="comment-area" class="the-new-com"></textarea>
               <div data-resource-id="<?=$resourceRs{'id'}?>" class="bt-add-com">Post comment</div>
@@ -297,7 +297,7 @@ $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
 
             <!-- previous comments -->
 <?php 
- $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
             $sql = mysqli_query($pMysqli, "SELECT * FROM comments c
                                 LEFT JOIN user u ON c.userid=u.id
                                 WHERE resource_id = ".$resourceRs{'id'}

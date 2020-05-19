@@ -1,31 +1,12 @@
-<?php //ini_set('“memory_limit”','”16M“');
+<?php ini_set('“memory_limit”','”16M“');
+
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
 $conn = mysqli_init(); 
 $_SESSION["connection"] = mysqli_real_connect($conn, $hostname, $username, $password, $database); 
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database"); 
 $pMysqli = true; 
-$pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
-
-if(!isset($_SESSION["user"]->comcnt))
-{
-  $_SESSION["user"]->comcnt = 5;
-}
-
-if(!isset($_SESSION["user"]->name))
-{
-  $_SESSION["user"]->name = '';
-}
-
-if(!isset($_SESSION["user"]->id))
-{
-  $_SESSION["user"]->id = 0;
-}
-
-//if(!isset($_SESSION["likedResources"]))
-//{
-//  $_SESSION["likedResources"] = array[];
-//}
+$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
 #function SPmysqli(){
 # global $pMysqli;
@@ -41,26 +22,51 @@ function redirect($url, $permanent = false) {
   header('Location: '.$url);
   exit();
 }
-$PcomCount;
-$PlikeCNT;
+if (!isset($PcomCount)) { $PcomCount = 5; } 
+if (!isset($PlikeCNT)) { $PlikeCNT = 15; }
+if (!isset($_Session["user"]->name)) { 
+  $_Session["user"]->name = "John Smith";
+  $_name = $_Session["user"]->name;  }
+
 $testy = "It worked";
 ?>
-echo '<script type="text/JavaScript">  
-    var PcomCount = "<?php echo $PcomCount; ?>"; 
-    var PlikeCNT = "<?php echo $PlikeCNT; ?>"; 
-     </script>' ;
+<script type="text/JavaScript">  
+var PcomCount = "<?php echo $PcomCount; ?>"; 
+var PlikeCNT = "<?php echo $PlikeCNT; ?>";
+var sign_name = "<?php echo $_name; ?>";
+alert(sign_name);
+document.getElementById("name-area").value = sign_name;
+
+</script> ;
 
              <script type="text/JavaScript">  
     function testy(){
     alert("The answer to all of your Prayers");
     }
 
+    function SendName(){
+      alert("SendName Called");
+      var getNAME = document.getElementById('name-area').value;
+      alert(getNAME);
+      $.ajax({
+              type: "POST",
+              url: "/includes/utils.php",
+              data: 'act=login-user'
+
+                    +'&name='+getNAME,
+
+                    success: function(html){
+                alert( getNAME + " has been sent");
+              }
+                  });
+
+    }
     function LikeIncrementCNT(){
       if (PlikeCNT >0 && PlikeCNT <=15) {
         if (PlikeCNT >1){
         SendLikeCNT();
       }
-        if(PlikeCNT == 1){
+        if(PlikeCNT == 0){
        // PlikeCNT = -1;
         //SendLikeCNT();
         //}
@@ -71,30 +77,32 @@ echo '<script type="text/JavaScript">
       //if (PLikeCNT <= 0){
         //alert("You have used your max amount of likes for today");
           //}
-      if (PlikeCNT == ""){
-        PlikeCNT = 16; 
-        SendLikeCNT();
-     }
+      //if (PlikeCNT == ""){
+        //PlikeCNT = 16; 
+        //SendLikeCNT();
+     //}
 
     }
 
     function SendLikeCNT(){
-    PlikeCNT = PlikeCNT - 1;
+    SlikeCNT = PlikeCNT - 1;
+    alert(SlikeCNT);
           //var that = this;
           $.ajax({
               type: "POST",
-              url: "/services/add-comment.php",
+              url: "/services/add-like.php",
               data: 'act=add-like'
 
-                    +'&SlikeCNT='+PlikeCNT,
+                    +'&SlikeCNT='+SlikeCNT,
                     
               success: function(html){
                 if (PlikeCNT > 1){
-                alert(" you have " + (PlikeCNT -1) + " likes remaining");
+                alert(" you have " + (PlikeCNT) + " likes remaining");
               }
             }
             });
         }
+        alert("Start");
      </script>' ;
 
 <?php
@@ -108,7 +116,25 @@ echo '<script type="text/JavaScript">
  * Otherwise, just updates lastLogin time.
  * Returns user along with privilege level.
  **************/
-function loginUser($response, $pMysqli) {
+  extract($_POST);
+  if($_POST['act'] == 'login-user'){
+  $user = new stdclass; 
+  $user->name = htmlentities($getNAME); 
+  $_SESSION[$user]->name = htmlentities($getNAME);
+  ?>
+<script type="text/JavaScript">  
+var namez = "<?php echo $_SESSION[$user]->name; ?>"; 
+alert(namez);
+</script>
+<?php
+}
+  ?>
+<script type="text/JavaScript">  
+alert("Ending");
+</script>
+<?php
+
+/*function loginUser($name) {
   if( $response['auth']['info'] ) {
     $default_privilege = 'user';
     $provider_id = $response['auth']['uid'];
@@ -157,7 +183,8 @@ function loginUser($response, $pMysqli) {
   } else {
     return null;
   }
-}
+} */
+
 $_SESSION["commentCoun"] = 0;
 
 function isLoggedIn() {
@@ -165,7 +192,7 @@ function isLoggedIn() {
 }
 
 function isAdmin() {
-  if( isset($_SESSION["user"]) && isset($_SESSION["user"]->privilege)) {
+  if( isset($_SESSION["user"]) ) {
     return ($_SESSION["user"]->privilege == 'admin');
   }
   return false;
@@ -407,7 +434,7 @@ function buildCategorySelect($withAI, $name = 'drilldown') {
 }
 
 function buildSubCatSqlCondition($cat) {
-  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+  $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   //first get all the categories that we should be searching on
   if(empty($cat)) {$cat = 0;}
   $subcats = getSubCats($cat, $pMysqli);
@@ -427,7 +454,7 @@ function buildSubCatSqlCondition($cat) {
 }
 
 function getSubCats($catId, $pMysqli) {
-  $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+  $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   $subcats = array();
 
   $r = mysqli_query($pMysqli, "SELECT id FROM category WHERE parent=".$catId);
@@ -451,7 +478,7 @@ function getSubCats($catId, $pMysqli) {
  ****************************************/
 
 function countResults($subcatString, $query, $pMysqli) { 
- $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   $sqlStatement = "
     SELECT count(DISTINCT r.id)
       FROM resource r
@@ -478,7 +505,7 @@ function countResults($subcatString, $query, $pMysqli) {
 }
 
 function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
- $pMysqli = new mysqli('127.0.0.1', 'root', '', 'openair');
+ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
   $sqlStatement="
   SELECT DISTINCT r.id, r.name, r.description, 
          r.owner, r.link, r.paper_url,

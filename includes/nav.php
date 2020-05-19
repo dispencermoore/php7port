@@ -36,8 +36,9 @@
                 <li class="hide-after-auth">
                  <form>
              <label name="name-area" style= "margin: 5px 10px" for="USRname">Name:</label>
+             <script> document.getElementById("name-area").value = sign_name;</script>
              <input type="text" id="name-area" name="name-area" style= "margin: 5px 10px" ></input>
-             <button class=btn style = "background-color: #337ab7"> Submit</button>
+             <button onclick = "SendName()" class=btn style = "background-color: #337ab7"> Submit</button>
            </form>
                 </li>
               <?php } else { ?>

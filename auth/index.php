@@ -31,7 +31,7 @@ $Opauth = new Opauth( $config );
 <html>
 <body>
 <?php
-session_start();
+//session_start();
 print_r($_SESSION['user']);
 echo $_SESSION['user_id'];
 ?>

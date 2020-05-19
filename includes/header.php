@@ -1,4 +1,6 @@
-<?php ob_start() ?>
+<?php //ob_start() 
+
+?>
 
 <?php
 include ($_SERVER['DOCUMENT_ROOT']."/includes/utils.php");
