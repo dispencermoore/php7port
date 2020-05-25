@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
+	
   <style>
     .content {
       margin-top: 20px;

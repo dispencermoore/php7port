@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
   <?php include ($_SERVER['DOCUMENT_ROOT'].'/services/admin-required.php'); ?>
 
 

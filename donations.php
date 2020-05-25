@@ -1,4 +1,3 @@
-<?php include 'header.php'; ?>
 <?php include 'category.php'; ?>
 <head>
 	<title>Donations</title>

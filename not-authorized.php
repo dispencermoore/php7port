@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
   <title>Unauthorized</title>
 
 </head>

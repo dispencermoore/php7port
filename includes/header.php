@@ -1,10 +1,6 @@
 <?php //ob_start() 
-
-?>
-
-<?php
 include ($_SERVER['DOCUMENT_ROOT']."/includes/utils.php");
-
+if(!isset($_SESSION)){session_start();}
 $activepage = $_SERVER["REQUEST_URI"];
 
 //if (isAdmin()) {

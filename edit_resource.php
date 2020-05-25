@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
   <?php include ($_SERVER['DOCUMENT_ROOT'].'/services/admin-required.php'); ?>
   
   <script src="/assets/js/jquery.jstree-1.0.js"></script>

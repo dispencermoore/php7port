@@ -1,3 +1,6 @@
+<?php 
+if(!isset($_SESSION)){session_start();}
+?>   
     <nav id="nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -34,11 +37,11 @@
             <ul class="inverse-dropdown dropdown-menu" role="menu">
               <?php if( !isLoggedIn() ) { ?>
                 <li class="hide-after-auth">
-                 <form>
-             <label name="name-area" style= "margin: 5px 10px" for="USRname">Name:</label>
-             <script> document.getElementById("name-area").value = sign_name;</script>
+                  <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+                 <form id="username" target="dummyframe" action="/includes/sign-in" method="post" >
+             <label name="name-thing" style= "margin: 5px 10px" for="USRname">Name:</label>
              <input type="text" id="name-area" name="name-area" style= "margin: 5px 10px" ></input>
-             <button onclick = "SendName()" class=btn style = "background-color: #337ab7"> Submit</button>
+             <input  type ="submit" onclick = "SendName()" class=btn-sign-in style = "background-color: #337ab7"></input> 
            </form>
                 </li>
               <?php } else { ?>

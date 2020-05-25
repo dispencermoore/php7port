@@ -1,6 +1,5 @@
 <?php
 include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
-
 //if( isLoggedIn()
 //) {   
 
@@ -10,10 +9,8 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 $_name;
   extract($_POST);
   if($_POST['act'] == 'add-com'){
-    loginUser();
     $comment = htmlentities($comment);
     $resource_id = htmlentities($resource_id);
-    $_SESSION["user"]->name =  htmlentities($name);
     $_SESSION["user"]->comCNT =  htmlentities($ScomCount);
     $PcomCount = $_SESSION["user"]->comCNT;
     $_name = htmlentities($name);

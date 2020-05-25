@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
 
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
-
   <style>
     body {
       font-family: Georgia, 'Times New Roman', Times, serif;

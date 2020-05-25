@@ -1,4 +1,5 @@
 <?php ini_set('“memory_limit”','”16M“');
+if(!isset($_SESSION)){session_start();} 
 
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
@@ -24,42 +25,30 @@ function redirect($url, $permanent = false) {
 }
 if (!isset($PcomCount)) { $PcomCount = 5; } 
 if (!isset($PlikeCNT)) { $PlikeCNT = 15; }
-if (!isset($_Session["user"]->name)) { 
-  $_Session["user"]->name = "John Smith";
-  $_name = $_Session["user"]->name;  }
-
+if (!isset($_SESSION["user"]->name)) { 
+  $_SESSION["user"]->name = "John Smith";  }
 $testy = "It worked";
+$_name = $_SESSION["user"]->name;
 ?>
 <script type="text/JavaScript">  
+  alert("<?php echo $_name; ?>");
 var PcomCount = "<?php echo $PcomCount; ?>"; 
 var PlikeCNT = "<?php echo $PlikeCNT; ?>";
 var sign_name = "<?php echo $_name; ?>";
-alert(sign_name);
-document.getElementById("name-area").value = sign_name;
 
-</script> ;
-
-             <script type="text/JavaScript">  
     function testy(){
     alert("The answer to all of your Prayers");
     }
-
+    window.onload = function SetName(){
+      alert("SetName Called");
+      alert("this will be set as; " + sign_name);
+      document.getElementById("name-area").value = sign_name;
+      alert(sign_name);
+    }
     function SendName(){
       alert("SendName Called");
-      var getNAME = document.getElementById('name-area').value;
-      alert(getNAME);
-      $.ajax({
-              type: "POST",
-              url: "/includes/utils.php",
-              data: 'act=login-user'
-
-                    +'&name='+getNAME,
-
-                    success: function(html){
-                alert( getNAME + " has been sent");
-              }
-                  });
-
+      var sign_name = document.getElementById('name-area').value;
+      alert("sign_name was set to " + sign_name);
     }
     function LikeIncrementCNT(){
       if (PlikeCNT >0 && PlikeCNT <=15) {
@@ -103,6 +92,25 @@ document.getElementById("name-area").value = sign_name;
             });
         }
         alert("Start");
+
+              $('.bt-sign-in').click(function(){
+        var sign_name = document.getElementById('name-area').value;
+          var that = this;
+          alert(sign_name);
+          $.ajax({
+              type: "POST",
+              url: "sign-in.php", 
+              data: 'act=user-sign-in'
+                    +'&name='+sign_name,
+
+              success: function(html){
+                alert(sign_name + ", you have logged in successfully");
+              },
+              error: function(msg) {
+                alert(msg.statusText);
+              }
+          });
+        });
      </script>' ;
 
 <?php
