@@ -282,6 +282,11 @@ a.admin-href {
   bottom: 8px;
 }
 
+#btn-themed {
+  color: white;
+  background-color: #00b6ff;
+}
+
 #searchform {
   margin: 0px;
 }

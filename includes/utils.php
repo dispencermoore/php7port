@@ -25,13 +25,11 @@ function redirect($url, $permanent = false) {
 }
 if (!isset($PcomCount)) { $PcomCount = 5; } 
 if (!isset($PlikeCNT)) { $PlikeCNT = 15; }
-if (!isset($_SESSION["user"]->name)) { 
-  $_SESSION["user"]->name = "John Smith";  }
 $testy = "It worked";
 $_name = $_SESSION["user"]->name;
 ?>
 <script type="text/JavaScript">  
-  alert("<?php echo $_name; ?>");
+//  alert("<?php echo $_name; ?>");
 var PcomCount = "<?php echo $PcomCount; ?>"; 
 var PlikeCNT = "<?php echo $PlikeCNT; ?>";
 var sign_name = "<?php echo $_name; ?>";
@@ -40,11 +38,11 @@ var sign_name = "<?php echo $_name; ?>";
     alert("The answer to all of your Prayers");
     }
     window.onload = function SetName(){
-      alert("SetName Called");
-      alert("this will be set as; " + sign_name);
+     // alert("SetName Called");
+      //alert("this will be set as; " + sign_name);
       document.getElementById("name-area").value = sign_name;
       alert(sign_name);
-    }
+    };
     function SendName(){
       alert("SendName Called");
       var sign_name = document.getElementById('name-area').value;
@@ -91,26 +89,7 @@ var sign_name = "<?php echo $_name; ?>";
             }
             });
         }
-        alert("Start");
-
-              $('.bt-sign-in').click(function(){
-        var sign_name = document.getElementById('name-area').value;
-          var that = this;
-          alert(sign_name);
-          $.ajax({
-              type: "POST",
-              url: "sign-in.php", 
-              data: 'act=user-sign-in'
-                    +'&name='+sign_name,
-
-              success: function(html){
-                alert(sign_name + ", you have logged in successfully");
-              },
-              error: function(msg) {
-                alert(msg.statusText);
-              }
-          });
-        });
+      //  alert("Start");
      </script>' ;
 
 <?php
@@ -124,23 +103,6 @@ var sign_name = "<?php echo $_name; ?>";
  * Otherwise, just updates lastLogin time.
  * Returns user along with privilege level.
  **************/
-  extract($_POST);
-  if($_POST['act'] == 'login-user'){
-  $user = new stdclass; 
-  $user->name = htmlentities($getNAME); 
-  $_SESSION[$user]->name = htmlentities($getNAME);
-  ?>
-<script type="text/JavaScript">  
-var namez = "<?php echo $_SESSION[$user]->name; ?>"; 
-alert(namez);
-</script>
-<?php
-}
-  ?>
-<script type="text/JavaScript">  
-alert("Ending");
-</script>
-<?php
 
 /*function loginUser($name) {
   if( $response['auth']['info'] ) {

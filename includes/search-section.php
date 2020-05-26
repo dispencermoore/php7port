@@ -1,5 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+    </head>
   <div id="heading" class="hero-unit">
-
     <!-- ############### search bar ################## -->
     <div class="row">
       <div id="search" class="col-xs-12">
@@ -10,11 +14,13 @@
               <div id="search-bar" class="input-group">
                 <input name='cat' type='hidden' value="<?= $cat ?>"></input>
                 <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/category.php'); ?>
+
                 <input id="search-input" type="text" class="form-control"
-                       name='q' value="<?= $sqlQuery ?>" 
+                       name='q' value="<?php if ($sqlQuery != "SELECT * from category where parent=0".$id){
+                        echo $sqlQuery;} ?>" 
                        placeholder="Search within <?= $catTitle ?>">
                 <span class="input-group-addon">
-                  <button type="submit" class="btn btn-danger">Search</button>
+                  <button type="submit" class="btn btn-themed" style="color: white; background-color: #00b6ff">Search</button>
                 </span>
               </div>
             </div>
@@ -35,3 +41,4 @@
        data-toggle="modal"
        data-target="#search-tip-modal">Advanced Search Tips</a>
   </div> <!-- end id=heading -->
+  </html>

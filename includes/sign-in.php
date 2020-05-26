@@ -17,6 +17,10 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 $_name = $nominal;
 
     $_SESSION["user"]->name = $nominal;
+    if (!isset($_SESSION["user"]->name)) { 
+    $_SESSION["user"]->id = uniqueid();  }
+
+
 
 /*
     //insert the comment in the database
