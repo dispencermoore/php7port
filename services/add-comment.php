@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION)){session_start();} 
 include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 //if( isLoggedIn()
 //) {   
@@ -13,7 +14,6 @@ $_name;
     $resource_id = htmlentities($resource_id);
     $_SESSION["user"]->comCNT =  htmlentities($ScomCount);
     $PcomCount = $_SESSION["user"]->comCNT;
-    $_name = htmlentities($name);
     $user_id = $_SESSION["user"]->id;
     ?>
 <script type="text/JavaScript">  

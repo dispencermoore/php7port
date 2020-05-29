@@ -1,6 +1,5 @@
-<?php ini_set('“memory_limit”','”16M“');
-if(!isset($_SESSION)){session_start();} 
-
+<?php if(!isset($_SESSION)){session_start();} 
+ini_set('“memory_limit”','”16M“');
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
 $conn = mysqli_init(); 
@@ -25,24 +24,31 @@ function redirect($url, $permanent = false) {
 }
 if (!isset($PcomCount)) { $PcomCount = 5; } 
 if (!isset($PlikeCNT)) { $PlikeCNT = 15; }
-$testy = "It worked";
+ if (isset($_SESSION["user"]->name)) { 
 $_name = $_SESSION["user"]->name;
+?><script>
+  var sign_name = "<?php echo $_name; ?>";
+  document.getElementById("name-area").value = sign_name;
+</script>
+<?php  }
+
+$testy = "It worked";
 ?>
 <script type="text/JavaScript">  
-//  alert("<?php echo $_name; ?>");
+  var sign_name;
 var PcomCount = "<?php echo $PcomCount; ?>"; 
 var PlikeCNT = "<?php echo $PlikeCNT; ?>";
-var sign_name = "<?php echo $_name; ?>";
+
 
     function testy(){
     alert("The answer to all of your Prayers");
     }
-    window.onload = function SetName(){
+     function SetName(){
      // alert("SetName Called");
       //alert("this will be set as; " + sign_name);
       document.getElementById("name-area").value = sign_name;
       alert(sign_name);
-    };
+    }
     function SendName(){
       alert("SendName Called");
       var sign_name = document.getElementById('name-area').value;

@@ -1,25 +1,22 @@
 <?php
 include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 if(!isset($_SESSION)){session_start();} 
+$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
 //if( isLoggedIn()
 //) {   
-$nominal = $_POST['name-area']
+$_SESSION["user"]->name = $_REQUEST['name-area']; 
+$nominal = $_SESSION["user"]->name;
+
+
     ?>
 <script type="text/JavaScript">  
   naminal= "<?php echo $nominal; ?>";
     alert("sign in,it got called" + naminal);
      </script>' ;
 <?php
-
-
-$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
-$_name = $nominal;
-
-    $_SESSION["user"]->name = $nominal;
-    if (!isset($_SESSION["user"]->name)) { 
-    $_SESSION["user"]->id = uniqueid();  }
-
+ if (!isset($_SESSION["user"]->id)) { 
+$_SESSION["user"]->id = session_id();  }
 
 
 /*
@@ -54,4 +51,5 @@ $_name = $nominal;
 //  echo "You must be logged in";
 //  header('HTTP/1.1 401 You must be signed in to comment');
 //}
+*/
 ?>

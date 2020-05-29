@@ -38,10 +38,10 @@ if(!isset($_SESSION)){session_start();}
               <?php if( !isLoggedIn() ) { ?>
                 <li class="hide-after-auth">
                   <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-                 <form id="username" target="dummyframe" action="/includes/sign-in" method="post" >
-             <label name="name-thing" style= "margin: 5px 10px" for="USRname">Name:</label>
+                 <form id="username" target="dummyframe" action="/includes/sign-in.php" method="post" >
+             <label for= "name-area" style= "margin: 5px 10px" for="USRname">Name:</label>
              <input type="text" id="name-area" name="name-area" style= "margin: 5px 10px" ></input>
-             <input  type ="submit" onclick = "SendName()" class=btn-sign-in style = "background-color: #337ab7"></input> 
+             <input  type ="submit" class=btn-sign-in style = "background-color: #337ab7"></input> 
            </form>
                 </li>
               <?php } else { ?>
