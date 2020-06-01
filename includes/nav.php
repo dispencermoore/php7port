@@ -39,8 +39,10 @@ if(!isset($_SESSION)){session_start();}
                 <li class="hide-after-auth">
                   <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
                  <form id="username" target="dummyframe" action="/includes/sign-in.php" method="post" >
-             <label for= "name-area" style= "margin: 5px 10px" for="USRname">Name:</label>
-             <input type="text" id="name-area" name="name-area" style= "margin: 5px 10px" ></input>
+             <label for= "first-name-area" style= "margin: 5px 10px" >First Name:</label>
+             <input type="text" id="name-area" name="first-name-area" style= "margin: 5px 10px" ></input>
+             <label for= "last-name-area" style= "margin: 5px 10px" >Last Name:</label>
+             <input type="text" id="name-area" name="last-name-area" style= "margin: 5px 10px" ></input>
              <input  type ="submit" class=btn-sign-in style = "background-color: #337ab7"></input> 
            </form>
                 </li>

@@ -43,12 +43,6 @@ var PlikeCNT = "<?php echo $PlikeCNT; ?>";
     function testy(){
     alert("The answer to all of your Prayers");
     }
-     function SetName(){
-     // alert("SetName Called");
-      //alert("this will be set as; " + sign_name);
-      document.getElementById("name-area").value = sign_name;
-      alert(sign_name);
-    }
     function SendName(){
       alert("SendName Called");
       var sign_name = document.getElementById('name-area').value;

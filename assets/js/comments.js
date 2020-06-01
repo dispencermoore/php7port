@@ -38,7 +38,6 @@
         var comCountElm = $('#comment-count');
         var comCount = parseInt(comCountElm.text());
         var resource_id = $(this).attr(' ');
-        var getNAME = document.getElementById('name-Area').value;
         if( !theCom.val()){
           alert('You need to write a comment!'); 
         }

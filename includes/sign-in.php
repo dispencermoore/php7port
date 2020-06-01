@@ -5,7 +5,9 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
 //if( isLoggedIn()
 //) {   
-$_SESSION["user"]->name = $_REQUEST['name-area']; 
+$F_name= $_REQUEST['first-name-area'];
+$L_name = $_REQUEST['last-name-area'];
+$_SESSION["user"]->name = $F_name." ".$L_name; 
 $nominal = $_SESSION["user"]->name;
 
 
@@ -17,6 +19,9 @@ $nominal = $_SESSION["user"]->name;
 <?php
  if (!isset($_SESSION["user"]->id)) { 
 $_SESSION["user"]->id = session_id();  }
+if (!isset($_SESSION["user"]->image)) { 
+$_SESSION['user']->image ="/assets/img-3rd/unknownuser.png";
+}
 
 
 /*
