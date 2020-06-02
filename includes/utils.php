@@ -31,13 +31,13 @@ $_name = $_SESSION["user"]->name;
   document.getElementById("name-area").value = sign_name;
 </script>
 <?php  }
- if (isset($_SESSION["user"]->comCNT)) { 
+if (!$PcomCNT){ 
 $PcomCNT = $_SESSION["user"]->comCNT;
-?><script>
+?>
+<script>
   var ScomCount = "<?php echo $PcomCNT; ?>";
 </script>
-<?php  }
-
+<?php }
 
 $testy = "It worked";
 ?>
@@ -49,10 +49,9 @@ var PlikeCNT = "<?php echo $PlikeCNT; ?>";
 
     function testy(){
     alert("The answer to all of your Prayers");
-    }
+    } 
     function CheckcomCount(){
       alert("check called");
-    ScomCount = "<?php echo $PcomCNT; ?>";
     alert("comCNT is " + ScomCount);
     }
     function SendName(){

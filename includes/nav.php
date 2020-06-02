@@ -1,6 +1,6 @@
 <?php 
 if(!isset($_SESSION)){session_start();}
-
+isLoggedIn();
 
 ?>   
     <nav id="nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
@@ -39,8 +39,7 @@ if(!isset($_SESSION)){session_start();}
             <ul class="inverse-dropdown dropdown-menu" role="menu">
               <?php if( !isLoggedIn() ) { ?>
                 <li class="hide-after-auth">
-                  <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-                 <form id="username" target="dummyframe" action="/includes/sign-in.php" method="post" >
+                 <form id="username" action="/includes/sign-in.php" method="post" >
              <label for= "first-name-area" style= "margin: 5px 10px" >First Name:</label>
              <input type="text" id="name-area" name="first-name-area" style= "margin: 5px 10px" ></input>
              <label for= "last-name-area" style= "margin: 5px 10px" >Last Name:</label>

@@ -33,10 +33,10 @@
 //          });
       });
 
-      CheckcomCount();
       // on post comment click 
       $('.bt-add-com').click(function(){
         var theCom = $(this).siblings('.the-new-com');
+        CheckcomCount();
         var comCountElm = $('#comment-count');
         var comCount = parseInt(comCountElm.text());
         var resource_id = $(this).attr(' ');
@@ -58,11 +58,13 @@
 
               success: function(html){
                 comCountElm.text(comCount+1);
+                location.reload(true);
                 alert(sign_name + ", you have " + ScomCount + " comments remaining");
                 theCom.val('');
                 $(that).css({opacity:0.6});
                 
                 $(that).parent().after(html);
+
               },
               error: function(msg) {
                 alert(msg.statusText);
