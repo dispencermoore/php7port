@@ -12,14 +12,15 @@ $_name;
   if($_POST['act'] == 'add-com'){
     $comment = htmlentities($comment);
     $resource_id = htmlentities($resource_id);
-    $_SESSION["user"]->comCNT =  htmlentities($ScomCount);
-    $PcomCount = $_SESSION["user"]->comCNT;
+    $_SESSION["user"]->comCNT = $_SESSION["user"]->comCNT - 1;
     $user_id = $_SESSION["user"]->id;
+    $PcomCNT = $_SESSION["user"]->comCNT; 
     ?>
 <script type="text/JavaScript">  
     alert("it got called");
-     </script>' ;
-<?php
+     ScomCount = "<?php echo $PcomCNT; ?>";
+</script>
+<?php 
 }
 
     //insert the comment in the database

@@ -22,6 +22,9 @@ $_SESSION["user"]->id = session_id();  }
 if (!isset($_SESSION["user"]->image)) { 
 $_SESSION['user']->image ="/assets/img-3rd/unknownuser.png";
 }
+if (!isset($_SESSION["user"]->comCNT)) { 
+$_SESSION['user']->comCNT =5;
+}
 
 
 /*

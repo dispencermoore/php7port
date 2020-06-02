@@ -1,5 +1,7 @@
 <?php 
 if(!isset($_SESSION)){session_start();}
+
+
 ?>   
     <nav id="nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->

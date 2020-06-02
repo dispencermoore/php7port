@@ -1,3 +1,5 @@
+<?php if(!isset($_SESSION)){session_start();} 
+include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
