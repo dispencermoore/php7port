@@ -8,7 +8,14 @@
     <div class="row">
       <div id="search" class="col-xs-12">
         <form id="searchform" class="form-search form-group" method="GET" action="<?= $catHref ?>">
-
+          <script>
+            var searchstr= String(window.location.href);
+            var strlength = searchstr.length;
+            var strVarstart = searchstr.lastIndexOf("=");
+            if(strVarstart != -1){
+            var searchtermVar = searchstr.substring(strVarstart + 1, strlength);
+            }
+          </script>
           <div class="row">
             <div class="col-lg-12">
               <div id="search-bar" class="input-group">
@@ -16,9 +23,13 @@
                 <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/category.php'); ?>
 
                 <input id="search-input" type="text" class="form-control"
-                       name='q' value="<?php if ($sqlQuery != "SELECT * from category where parent=0".$id){
-                        echo $sqlQuery;} ?>" 
+                       name='q' 
                        placeholder="Search within <?= $catTitle ?>">
+                       <script>
+                        if(strVarstart != -1){
+                         document.getElementById("search-input").value = searchtermVar;
+                       }
+                       </script>
                 <span class="input-group-addon">
                   <button type="submit" class="btn btn-themed" style="color: white; background-color: #00b6ff">Search</button>
                 </span>

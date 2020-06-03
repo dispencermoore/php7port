@@ -50,7 +50,7 @@ isLoggedIn();
               <?php } else { ?>
                 <li class="show-after-auth">
                   <a href="/services/logout.php">
-                    Log Off
+                    Sign Off
                   </a>
                 </li>
               <?php } ?>
@@ -66,4 +66,4 @@ isLoggedIn();
 
       </div>
     </nav>
-    <div class="header-spacer"></div>
+    <div style= "height: 30px"></div>

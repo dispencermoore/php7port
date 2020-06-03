@@ -5,9 +5,6 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
 <head>
 
   <style>
-    body {
-      font-family: Georgia, 'Times New Roman', Times, serif;
-    }
 
 /*
     .section-odd {
@@ -29,7 +26,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
 
   
   
-<div id="about-content" class="">
+<div style= "font-family: Georgia, 'Times New Roman', Times, serif;" id="about-content" class="">
   <!-- ############### About Us ############### -->
   <div id="about-us" class="about-section section-odd">
     <div class="row">
@@ -90,6 +87,18 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
       <div class="col-xs-12">
         <div class="section-subheader">Editors</div>
         <div class="row">
+          <div class="list-item col-xs-6">
+            Asa Ali-Watkins
+          </div>
+           <div class="list-item col-xs-6">
+            Spencer Moore
+          </div>
+             <div class="list-item col-xs-6">
+            Gabby Desch-Obi
+          </div>
+           <div class="list-item col-xs-6">
+           Kaushik Korlapati
+          </div>
           <div class="list-item col-xs-6">
             Sanqiang Zhao
           </div>

@@ -18,7 +18,9 @@ $_SESSION['user']->image ="/assets/img-3rd/unknownuser.png";
 if (!isset($_SESSION["user"]->comCNT)) { 
 $_SESSION['user']->comCNT =5;
 }
-
+if (!isset($_SESSION["user"]->privilege)) { 
+$_SESSION['user']->privilege = "user";
+}
 
 /*
     //insert the comment in the database
