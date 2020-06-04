@@ -286,6 +286,7 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
             <!-- comment form -->
             <div class="new-com-cnt">
+              <label id="comment-label" style="color: grey">Sign in to Comment</label>
               <textarea id="comment-area" class="the-new-com"></textarea>
               <div data-resource-id="<?=$resourceRs{'id'}?>" class="bt-add-com">Post comment</div>
               <div class="bt-cancel-com">Cancel</div>

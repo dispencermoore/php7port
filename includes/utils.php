@@ -59,48 +59,7 @@ var PlikeCNT = "<?php echo $PlikeCNT; ?>";
       var sign_name = document.getElementById('name-area').value;
       alert("sign_name was set to " + sign_name);
     }
-    function LikeIncrementCNT(){
-      if (PlikeCNT >0 && PlikeCNT <=15) {
-        if (PlikeCNT >1){
-        SendLikeCNT();
-      }
-        if(PlikeCNT == 0){
-       // PlikeCNT = -1;
-        //SendLikeCNT();
-        //}
-        //if(PlikeCNt == -2){
-          alert("You have used your max amount of likes for today");
-          } 
-        }
-      //if (PLikeCNT <= 0){
-        //alert("You have used your max amount of likes for today");
-          //}
-      //if (PlikeCNT == ""){
-        //PlikeCNT = 16; 
-        //SendLikeCNT();
-     //}
 
-    }
-
-    function SendLikeCNT(){
-    SlikeCNT = PlikeCNT - 1;
-    alert(SlikeCNT);
-          //var that = this;
-          $.ajax({
-              type: "POST",
-              url: "/services/add-like.php",
-              data: 'act=add-like'
-
-                    +'&SlikeCNT='+SlikeCNT,
-                    
-              success: function(html){
-                if (PlikeCNT > 1){
-                alert(" you have " + (PlikeCNT) + " likes remaining");
-              }
-            }
-            });
-        }
-      //  alert("Start");
      </script>' ;
 
 <?php

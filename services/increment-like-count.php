@@ -1,7 +1,11 @@
 <?php
+
 include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 //include ($_SERVER['DOCUMENT_ROOT'].'/services/login-required.php');
-
+?><script type="text/javascript">
+  alert("likecount called");
+</script>
+<?php
 if( !empty($_GET['resource_id'])
 &&  isLoggedIn()
 ) {

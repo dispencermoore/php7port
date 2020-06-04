@@ -10,7 +10,7 @@ $L_name = $_REQUEST['last-name-area'];
 $_SESSION["user"]->name = $F_name." ".$L_name; 
 
  if (!isset($_SESSION["user"]->id)) { 
-$_SESSION["user"]->id = session_id();
+$_SESSION["user"]->id = rand();
   }
 if (!isset($_SESSION["user"]->image)) { 
 $_SESSION['user']->image ="/assets/img-3rd/unknownuser.png";

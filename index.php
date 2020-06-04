@@ -199,11 +199,13 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
             if( isLoggedIn() ) {
               $user_id = $_SESSION["user"]->id;
 
-              $likedRs = mysqli_query( $pMysqli, "
-                SELECT COUNT(*) as cnt FROM resource_likes
+              $likedRs = mysqli_query( $pMysqli, 
+                "SELECT COUNT(*) as cnt FROM resource_likes
                 WHERE resource_id=".$row{'id'}."
-                AND user_id=$user_id
-                ");
+                AND user_id=$user_id"
+              );
+              //if (!$likedRs) {    
+               // printf("Error: %s\n", $user_id); }
               $likedRow = mysqli_fetch_array($likedRs);
               if( $likedRow{'cnt'} > 0 ) {
                 $likedClass='liked';
@@ -213,7 +215,7 @@ $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
 
           <tr class="resource-container">
             <td class="meta-resource-column">
-              <span class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" onclick = "LikeIncrementCNT()" aria-hidden="true" 
+              <span class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true" 
                 data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></span>
               <a class="hover-show"  href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
     

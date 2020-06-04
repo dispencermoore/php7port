@@ -32,7 +32,10 @@
 //              $('.new-com-bt').fadeIn('fast');
 //          });
       });
+if (sign_name != undefined){
+document.getElementById("comment-label").innerHTML = "You have " + ScomCount + " comments remaining for today.";
 
+}
       // on post comment click 
       $('.bt-add-com').click(function(){
         var theCom = $(this).siblings('.the-new-com');

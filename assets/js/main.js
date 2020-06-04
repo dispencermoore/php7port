@@ -23,14 +23,15 @@ function attachEvents() {
     if( resource_id ) {
       var numLikes = parseInt($(this).text());
 //      console.log(resource_id + ': ' + numLikes);
-      
       var that = this;
-      $.ajax({
-        url: '/services/increment-like-count.php?resource_id='+resource_id,
-        type: 'GET',
+        $.ajax({
+          url: '/services/increment-like-count.php',
+          type: 'GET',
+          data: 'resource_id=' +resource_id, 
+
         statusCode: {
           200: function() {
-//            console.log('submitted Like');
+            console.log('submitted Like');
             numLikes++;
             $(that).text(' '+numLikes);
             $(that).addClass('liked');
