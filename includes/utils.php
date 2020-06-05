@@ -6,7 +6,7 @@ $conn = mysqli_init();
 $_SESSION["connection"] = mysqli_real_connect($conn, $hostname, $username, $password, $database); 
 $db = mysqli_select_db($conn, $database) or die("Unable to connect to $database"); 
 $pMysqli = true; 
-$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+$pMysqli = new mysqli($hostname, $username, $password, $database);
 
 #function SPmysqli(){
 # global $pMysqli;
@@ -374,7 +374,7 @@ function buildCategorySelect($withAI, $name = 'drilldown') {
 }
 
 function buildSubCatSqlCondition($cat) {
-  $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+  $pMysqli = new mysqli($hostname, $username, $password, $database);
   //first get all the categories that we should be searching on
   if(empty($cat)) {$cat = 0;}
   $subcats = getSubCats($cat, $pMysqli);
@@ -394,7 +394,7 @@ function buildSubCatSqlCondition($cat) {
 }
 
 function getSubCats($catId, $pMysqli) {
-  $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+  $pMysqli = new mysqli($hostname, $username, $password, $database);
   $subcats = array();
 
   $r = mysqli_query($pMysqli, "SELECT id FROM category WHERE parent=".$catId);
@@ -418,7 +418,7 @@ function getSubCats($catId, $pMysqli) {
  ****************************************/
 
 function countResults($subcatString, $query, $pMysqli) { 
- $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+ $pMysqli = new mysqli($hostname, $username, $password, $database);
   $sqlStatement = "
     SELECT count(DISTINCT r.id)
       FROM resource r
@@ -445,7 +445,7 @@ function countResults($subcatString, $query, $pMysqli) {
 }
 
 function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
- $pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+ $pMysqli = new mysqli($hostname, $username, $password, $database);
   $sqlStatement="
   SELECT DISTINCT r.id, r.name, r.description, 
          r.owner, r.link, r.paper_url,

@@ -5,7 +5,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 
 
 
-$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+$pMysqli = new mysqli($hostname, $username, $password, $database);
 $_name;
   extract($_POST);
     if($_POST['act'] == 'add-like'){

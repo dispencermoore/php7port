@@ -1,7 +1,7 @@
 <?php
 header( 'Location: /' ) ;
 if(!isset($_SESSION)){session_start();} 
-$pMysqli = new mysqli('127.0.0.1', 'root', 'asa192526', 'openair');
+$pMysqli = new mysqli($hostname, $username, $password, $database);
 
 //if( isLoggedIn()
 //) {   
