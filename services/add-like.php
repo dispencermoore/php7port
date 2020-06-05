@@ -4,7 +4,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 //) {   
 
 
-
+include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 $pMysqli = new mysqli($hostname, $username, $password, $database);
 $_name;
   extract($_POST);

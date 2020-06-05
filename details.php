@@ -21,6 +21,7 @@
   </script>
 <?php
 
+include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 $pMysqli = new mysqli($hostname, $username, $password, $database);
   incrementViewCount($id,$pMysqli);
 
@@ -295,6 +296,7 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
 
             <!-- previous comments -->
 <?php 
+include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
  $pMysqli = new mysqli($hostname, $username, $password, $database);
             $sql = mysqli_query($pMysqli, "SELECT * FROM comments c
                                 LEFT JOIN user u ON c.userid=u.id

@@ -166,6 +166,7 @@ if(isAdmin()) {
 
 <?php
         // ########## print search results
+include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 $pMysqli = new mysqli($hostname, $username, $password, $database);
         $count = 0;
         $sqlStatement = getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS);

@@ -374,6 +374,7 @@ function buildCategorySelect($withAI, $name = 'drilldown') {
 }
 
 function buildSubCatSqlCondition($cat) {
+  include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
   $pMysqli = new mysqli($hostname, $username, $password, $database);
   //first get all the categories that we should be searching on
   if(empty($cat)) {$cat = 0;}
@@ -394,6 +395,7 @@ function buildSubCatSqlCondition($cat) {
 }
 
 function getSubCats($catId, $pMysqli) {
+  include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
   $pMysqli = new mysqli($hostname, $username, $password, $database);
   $subcats = array();
 
@@ -418,6 +420,7 @@ function getSubCats($catId, $pMysqli) {
  ****************************************/
 
 function countResults($subcatString, $query, $pMysqli) { 
+  include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
  $pMysqli = new mysqli($hostname, $username, $password, $database);
   $sqlStatement = "
     SELECT count(DISTINCT r.id)
@@ -445,6 +448,7 @@ function countResults($subcatString, $query, $pMysqli) {
 }
 
 function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
+  include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
  $pMysqli = new mysqli($hostname, $username, $password, $database);
   $sqlStatement="
   SELECT DISTINCT r.id, r.name, r.description, 

@@ -1,6 +1,7 @@
 <?php
 header( 'Location: /' ) ;
 if(!isset($_SESSION)){session_start();} 
+include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 $pMysqli = new mysqli($hostname, $username, $password, $database);
 
 //if( isLoggedIn()

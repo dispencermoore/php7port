@@ -3,7 +3,7 @@ if(!isset($_SESSION)){session_start();}
 include ($_SERVER['DOCUMENT_ROOT'].'/includes/utils.php');
 //if( isLoggedIn()
 //) {   
-
+include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 $pMysqli = new mysqli($hostname, $username, $password, $database);
 $_name;
   extract($_POST);
