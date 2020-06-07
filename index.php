@@ -216,10 +216,12 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
 
           <tr class="resource-container">
             <td class="meta-resource-column">
-              <span class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true" 
-                data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></span>
-              <a class="hover-show"  href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
-    
+               <form id="likesection" action="/services/increment-like-count.php" method="post" >
+              <input name="like_input" id= "like_input" type="submit" class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true"  value="<?=$row{'id'}?>"
+                data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></input>
+              </form>
+              <a class="hover-show" type="submit" href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
+                 
                   <span class="glyphicon glyphicon-comment comment" aria-hidden="true" data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_comments'}?></span>
               </a>
             </td>

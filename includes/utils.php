@@ -31,6 +31,7 @@ $_name = $_SESSION["user"]->name;
   document.getElementById("name-area").value = sign_name;
 </script>
 <?php  }
+
 if (!$PcomCNT){ 
 $PcomCNT = $_SESSION["user"]->comCNT;
 ?>
@@ -59,8 +60,7 @@ var PlikeCNT = "<?php echo $PlikeCNT; ?>";
       var sign_name = document.getElementById('name-area').value;
       alert("sign_name was set to " + sign_name);
     }
-
-     </script>' ;
+     </script>
 
 <?php
 
