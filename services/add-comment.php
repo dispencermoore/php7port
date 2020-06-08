@@ -15,20 +15,21 @@ $_name;
     $PcomCNT = $_SESSION["user"]->comCNT; 
     ?>
 <script type="text/JavaScript">  
-    alert("it got called");
+    alert("<?php echo $resource_id ?>");
      ScomCount = "<?php echo $PcomCNT; ?>";
 </script>
 <?php 
 }
 
     //insert the comment in the database
-    mysqli_query($pMysqli, "INSERT INTO comments (comment, resource_id, userid)
-       VALUES('$comment', '$resource_id','$user_id')");
+    $UsrComment = "INSERT INTO comments (comment, resource_id, userid)
+       VALUES('$comment', '$resource_id','$user_id')";
+    mysqli_query($pMysqli, $UsrComment);
        //if(!mysqli_errno($_SESSION["connection"])){
-      mysqli_query($pMysqli, 
-        "UPDATE resource SET"
+    $UsrComment2 = "UPDATE resource SET"
         ." num_comments = num_comments + 1"
-        ." WHERE id=$resource_id");
+        ." WHERE id=$resource_id";
+      mysqli_query($pMysqli, $UsrComment2);
   ?>
 <script type="text/JavaScript">  
     var PcomCount = "<?php echo $PcomCount; ?>"; 
