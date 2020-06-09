@@ -4,7 +4,7 @@ if(!isset($_SESSION)){session_start();}
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 $pMysqli = new mysqli($hostname, $username, $password, $database);
 //include ($_SERVER['DOCUMENT_ROOT'].'/services/login-required.php');
-$resource_id = $_REQUEST['like_input'];
+$resource_id = $_REQUEST['resource_id'];
 if (!isset($_SESSION["likedResourcesArray"])) {
  $_SESSION["likedResourcesArray"] = array();
  //array_push($_SESSION["likedResourcesArray"], 5);
@@ -20,8 +20,12 @@ $alreadyLiked = false;
    $alreadyLiked = true;
   }
  }
+
  if ($_SESSION["user"]->likeCNT >= 15) { 
     $maxLiked = true;
+  }
+    else{
+      $maxLiked = false;
     }
  
  if(!($alreadyLiked) and !($maxLiked)) {
@@ -33,6 +37,9 @@ $alreadyLiked = false;
 
     mysqli_query($pMysqli, $updateSql);
     $_SESSION["user"]->likeCNT++;
+    header('HTTP/1.1 200 OK');
+}else{
+    header('HTTP/1.1 304 Not Modified');
 }
 
 ?>

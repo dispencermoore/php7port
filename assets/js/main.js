@@ -20,10 +20,6 @@ function categoryClicked(id, name) {
 function attachEvents() {
   $('.like').on('click', function() {
     var resource_id = $(this).attr('data-resource-id');
-    if( resource_id ) {
-      var numLikes = parseInt($(this).text());
-//      console.log(resource_id + ': ' + numLikes);
-      var that = this;
         $.ajax({
           url: '/services/increment-like-count.php',
           type: 'GET',
