@@ -8,10 +8,10 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
 $_name;
   extract($_POST);
   if($_POST['act'] == 'add-com'){
-    $comment = htmlentities($comment);
+    $comment = "'".htmlentities($comment)."'";
     $resource_id = htmlentities($resource_id);
     $_SESSION["user"]->comCNT = $_SESSION["user"]->comCNT - 1;
-    $user_id = $_SESSION["user"]->id;
+    $user_id =$_SESSION["user"]->id;
     $PcomCNT = $_SESSION["user"]->comCNT; 
     ?>
 <script type="text/JavaScript">  
@@ -20,10 +20,11 @@ $_name;
 </script>
 <?php 
 }
-
+$_name = "'".$_SESSION["user"]->name."'";
+$image = "'".$_SESSION["user"]->image."'";
     //insert the comment in the database
-    $UsrComment = "INSERT INTO comments (comment, resource_id, userid)
-       VALUES('$comment', '$resource_id','$user_id')";
+    $UsrComment = "INSERT INTO comments (comment, resource_id, userid, name, image_url)
+       VALUES($comment, $resource_id,$user_id, $_name, $image)";
     mysqli_query($pMysqli, $UsrComment);
        //if(!mysqli_errno($_SESSION["connection"])){
     $UsrComment2 = "UPDATE resource SET"

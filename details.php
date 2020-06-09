@@ -311,12 +311,12 @@ include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
               $date = $affcom['date'];
 ?>
               <div class="cmt-cnt">
-                <?php if( !empty($commenter_profile) ) { ?><a href="<?= $commenter_profile ?>"><?php } ?>
-                  <img src="<?= $commenter_img ?>" />
+                <?php if( !empty($commenter_profile) ) { ?><a href="<?php echo $commenter_name ?>"><?php } ?>
+                  <img src="<?php echo $commenter_img ?>" />
                 <?php if( !empty($commenter_profile) ) { ?></a><?php } ?>
                 <div class="thecom">
                   <h5>
-                    <?php if( !empty($commenter_profile) ) { ?><a href="<?= $commenter_profile ?>"><?php } ?>
+                    <?php if( !empty($commenter_profile) ) { ?><a href="<?php echo $commenter_name ?>"><?php } ?>
                       <?= $commenter_name; ?>
                     <?php if( !empty($commenter_profile) ) { ?></a><?php } ?>
                   </h5>

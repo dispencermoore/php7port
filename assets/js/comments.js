@@ -40,7 +40,6 @@ var urltext = window.location.href;
 var RIend = urltext.lastIndexOf("&");
 var RIstart = urltext.indexOf("=");
 var RIstring = urltext.substring(RIstart + 1, RIend);
-alert (RIstring);
       // on post comment click 
       $('.bt-add-com').click(function(){
         
