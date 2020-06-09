@@ -36,13 +36,19 @@ if (sign_name != undefined){
 document.getElementById("comment-label").innerHTML = "You have " + ScomCount + " comments remaining for today.";
 
 }
+var urltext = window.location.href;
+var RIend = urltext.lastIndexOf("&");
+var RIstart = urltext.indexOf("=");
+var RIstring = urltext.substring(RIstart + 1, RIend);
+alert (RIstring);
       // on post comment click 
       $('.bt-add-com').click(function(){
+        
         var theCom = $(this).siblings('.the-new-com');
         CheckcomCount();
         var comCountElm = $('#comment-count');
         var comCount = parseInt(comCountElm.text());
-        var resource_id = $(this).attr(' ');
+        var resource_id = RIstring;
         if( !theCom.val()){
           alert('You need to write a comment!'); 
         }
@@ -62,7 +68,7 @@ document.getElementById("comment-label").innerHTML = "You have " + ScomCount + "
               success: function(html){
                 comCountElm.text(comCount+1);
                 location.reload(true);
-                alert(sign_name + ", you have " + ScomCount + " comments remaining");
+                alert(sign_name + ", you have " + (ScomCount - 1) + " comments remaining");
                 theCom.val('');
                 $(that).css({opacity:0.6});
                 

@@ -20,8 +20,11 @@ $alreadyLiked = false;
    $alreadyLiked = true;
   }
  }
+ if ($_SESSION["user"]->likeCNT >= 15) { 
+    $maxLiked = true;
+    }
  
- if(!($alreadyLiked)) {
+ if(!($alreadyLiked) and !($maxLiked)) {
   array_push($_SESSION["likedResourcesArray"], $resource_id);
       $updateSql =
       "UPDATE resource SET"
@@ -29,6 +32,7 @@ $alreadyLiked = false;
       ." WHERE id=$resource_id";
 
     mysqli_query($pMysqli, $updateSql);
+    $_SESSION["user"]->likeCNT++;
 }
 
 ?>

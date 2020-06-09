@@ -22,7 +22,9 @@ $_SESSION['user']->comCNT =5;
 if (!isset($_SESSION["user"]->privilege)) { 
 $_SESSION['user']->privilege = "user";
 }
-
+if (!isset($_SESSION["user"]->likeCNT)) { 
+$_SESSION['user']->likeCNT = 0;
+}
 /*
     //insert the comment in the database
     mysqli_query($pMysqli, "INSERT INTO comments (comment, resource_id, userid)

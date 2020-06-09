@@ -216,7 +216,6 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
 
           <tr class="resource-container">
             <td class="meta-resource-column">
-              <iframe name="dummy" style="display:none;"></iframe>
                <form id="likesection" action="/services/increment-like-count.php" method="post" >
               <input name="like_input" id= "like_input" type="submit" class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true"  value="<?=$row{'id'}?>"
                 data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></input>

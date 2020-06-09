@@ -17,17 +17,40 @@ function categoryClicked(id, name) {
 	loaded = true;
 }
 
-//function attachEvents() {
- // $('.like').on('click', function() {
-  //  var resource_id = $(this).attr('data-resource-id');
-   //     $.ajax({
-    //      url: '/services/increment-like-count.php',
-    //      type: 'POST',
-     //     data: 'resource_id=' +resource_id, 
+function attachEvents() {
+  $('.like').on('click', function() {
+    var resource_id = $(this).attr('data-resource-id');
+    if( resource_id ) {
+      var numLikes = parseInt($(this).text());
+//      console.log(resource_id + ': ' + numLikes);
+      var that = this;
+        $.ajax({
+          url: '/services/increment-like-count.php',
+          type: 'GET',
+          data: 'resource_id=' +resource_id, 
 
-    // });
-   //   });    
-   // }
+        statusCode: {
+          200: function() {
+            console.log('submitted Like');
+            numLikes++;
+            $(that).text(' '+numLikes);
+            $(that).addClass('liked');
+          },
+          304: function() {
+            // do nothing when Like already submitted by this user
+            alert('You already Liked this resource before');
+          },
+          400: function() {
+            // Something went terribly wrong
+            alert('Sorry, could not submit your Like. Please contact Admin.');
+          },
+          401: function() {
+            alert('You must be Signed In to Like a resource');
+          }
+        }
+      });    
+    }
+  });
   
   $('.resource-container').hover(
     function(evt) {
