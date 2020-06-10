@@ -2,7 +2,7 @@
 
 // mysql credentials
 $username = "root";
-$password = "asa192526";
+$password = "";
 $hostname = "127.0.0.1";
 $database = "openair";
 

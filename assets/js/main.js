@@ -45,7 +45,6 @@ function attachEvents() {
           }
         }
       });    
-    }
   });
   
   $('.resource-container').hover(
