@@ -304,8 +304,14 @@ include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
                               ." ORDER BY c.date DESC")
                     or die(mysqli_error());;
             while($affcom = mysqli_fetch_assoc($sql)){
-              $commenter_name = $affcom['name'];
-              $commenter_img = $affcom['image_url'];
+              $commenter_name = $affcom['c_name'];
+              if (is_null($commenter_name)){
+                $commenter_name = $affcom['name'];
+              }
+              $commenter_img = $affcom['c_image_url'];
+              if (is_null($commenter_img)){
+                $commenter_img = $affcom['image_url'];
+              }
               $commenter_profile = $affcom['profile_url'];
               $comment = $affcom['comment'];
               $date = $affcom['date'];

@@ -23,7 +23,7 @@ $_name;
 $_name = "'".$_SESSION["user"]->name."'";
 $image = "'".$_SESSION["user"]->image."'";
     //insert the comment in the database
-    $UsrComment = "INSERT INTO comments (comment, resource_id, userid, name, image_url)
+    $UsrComment = "INSERT INTO comments (comment, resource_id, userid, c_name, c_image_url)
        VALUES($comment, $resource_id,$user_id, $_name, $image)";
     mysqli_query($pMysqli, $UsrComment);
        //if(!mysqli_errno($_SESSION["connection"])){

@@ -20,6 +20,9 @@ function categoryClicked(id, name) {
 function attachEvents() {
   $('.like').on('click', function() {
     var resource_id = $(this).attr('data-resource-id');
+    if( resource_id ) {
+     var numLikes = parseInt($(this).text());
+     var that = this;
         $.ajax({
           url: '/services/increment-like-count.php',
           type: 'GET',
@@ -44,8 +47,9 @@ function attachEvents() {
             alert('You must be Signed In to Like a resource');
           }
         }
-      });    
-  });
+      });
+      }    
+    });
   
   $('.resource-container').hover(
     function(evt) {
