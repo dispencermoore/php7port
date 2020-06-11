@@ -20,7 +20,6 @@ $alreadyLiked = false;
    $alreadyLiked = true;
   }
  }
-
  if ($_SESSION["user"]->likeCNT >= 15) { 
     $maxLiked = true;
   }
@@ -28,7 +27,7 @@ $alreadyLiked = false;
       $maxLiked = false;
     }
  
- if(!($alreadyLiked) and !($maxLiked)) {
+ if(!($alreadyLiked) and !($maxLiked) and isset($_SESSION["user"]->name)) {
   array_push($_SESSION["likedResourcesArray"], $resource_id);
       $updateSql =
       "UPDATE resource SET"
@@ -38,8 +37,13 @@ $alreadyLiked = false;
     mysqli_query($pMysqli, $updateSql);
     $_SESSION["user"]->likeCNT++;
     header('HTTP/1.1 200 OK');
-}else{
+}else if ($alreadyLiked){
     header('HTTP/1.1 304 Not Modified');
+}else if ($maxliked){
+  header('HTTP/1.1 304 Not Modified');
+}else if(!isset($_SESSION["user"]->name)){
+header('HTTP/1.1 401 You must be logged in');
+
 }
 
 ?>

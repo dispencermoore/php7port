@@ -37,7 +37,7 @@ function attachEvents() {
           },
           304: function() {
             // do nothing when Like already submitted by this user
-            alert('You already Liked this resource before');
+            alert('You already Liked this resource before/or have reached the maximum amount of likes per day(15)');
           },
           400: function() {
             // Something went terribly wrong

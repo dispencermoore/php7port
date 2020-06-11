@@ -36,7 +36,7 @@ isLoggedIn();
               </a>
               <?php } ?>
 
-            <ul class="inverse-dropdown dropdown-menu" role="menu">
+            <ul class="inverse-dropdown dropdown-menu" role="menu" >
               <?php if( !isLoggedIn() ) { ?>
                 <li class="hide-after-auth">
                  <form id="username" action="/includes/sign-in.php" method="post" >

@@ -3,6 +3,9 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <link rel="icon" 
+  href="https://images.squarespace-cdn.com/content/v1/53cede1ae4b0de9f6e919b11/1410360829591-Z3M3PPXSBIHN1110ZIAL/ke17ZwdGBToddI8pDm48kMpagLdZPgiW6yD5i4KsS9VZw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7UnCxNA8dHvmd7460Z7fbKFSZnIIAPuX1C4iUTyn4Xd4-76gsgk4xgxAaWTBSRHt9w/favicon.ico" /> 
+
 
   <style>
 
@@ -34,7 +37,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
         <h2 class="section-header" style="color:black">About Us</h2>
       </div>
       <div class="col-xs-12 about-desc">
-        <p>Open AI Resources is a directory of open source software and open access data for the AI research community. The site was initially developed by the <a href="http://allenai.org/">Allen Institute for Artificial Intelligence</a> and <a href="http://www.inferlink.com">InferLink Corporation</a>, and is currently managed by <a href="https://www.jair.org/aiaf.html">AI Access Foundation</a>. Please consider helping us out by submitting a new resource, becoming an editor, or making a financial contribution.</p>
+        <p>Open AI Resources is a directory of open source software and open access data for the AI research community. The site was initially developed by the <a href="http://allenai.org/">Allen Institute for Artificial Intelligence</a> and <a href="http://www.inferlink.com">InferLink Corporation</a>, and is currently managed by <a href="https://www.google.com/url?q=http://aiaccess.org&sa=D&source=hangouts&ust=1591996147361000&usg=AFQjCNGMfb6oF8DKzX2Q8Bmt4n1Vl3bQtQ">AI Access Foundation</a>. Please consider helping us out by submitting a new resource, becoming an editor, or making a financial contribution.</p>
       </div>
 <!--
       <div class="about-anchor-link col-xs-12 col-sm-4"><a href="#editor">Our Editors</a></div>

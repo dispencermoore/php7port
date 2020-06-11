@@ -14,7 +14,7 @@ $_SESSION["user"]->name = $F_name." ".$L_name;
 $_SESSION["user"]->id = rand();
   }
 if (!isset($_SESSION["user"]->image)) { 
-$_SESSION['user']->image ="/assets/img-3rd/unknownuser.png";
+$_SESSION['user']->image ="/assets/img-3rd/adaptive.png";
 }
 if (!isset($_SESSION["user"]->comCNT)) { 
 $_SESSION['user']->comCNT =5;

@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
+	 <link rel="icon" 
+  href="https://images.squarespace-cdn.com/content/v1/53cede1ae4b0de9f6e919b11/1410360829591-Z3M3PPXSBIHN1110ZIAL/ke17ZwdGBToddI8pDm48kMpagLdZPgiW6yD5i4KsS9VZw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7UnCxNA8dHvmd7460Z7fbKFSZnIIAPuX1C4iUTyn4Xd4-76gsgk4xgxAaWTBSRHt9w/favicon.ico" /> 
+
   <style>
     .content {
       margin-top: 20px;
@@ -32,13 +34,13 @@
 		      <p style="font-weight: normal;">AI Resources relies on the contributions of the general public and people in the AI community for its content. To submit a resource, please sign in (e.g., via Facebook or Twitter) and click "Add a Resource", which appear sin the top banner once you sign in.  You will be prompted to submit the basic information about that resource. All submissions are reviewed by our editors before they are posted. It may take a bit of time before an editor reviews your submission, so don't be surprised if it doesn't show up for a while.</p>
 		    </li>
 		    <li>Do I need an account to sign in?
-		    <p style="font-weight: normal;">Currently a Facebook or Twitter account is required for sign in (to prevent spam "Likes", "Comments" or "Suggestions").  In the near future , we hope to add other ways to sign in.</p>
+		    <p style="font-weight: normal;">No, you only need to input your name in order to sign in.</p>
 		    </li>
 		    <li>What if I have trouble accessing the site?
 		      <p style="font-weight: normal;">If you experience any technical difficulties while browsing the directory, please contact us at<img src="/assets/img/contact-email-blue.png" height="" width="175"/></p>
 		    </li>
-		    <li>How can I send comments?
-		      <p style="font-weight: normal;">Please feel free to send us comments at<img src="/assets/img/contact-email-blue.png" height="" width="175"/></p>
+		    <li>How can I send feedback?
+		      <p style="font-weight: normal;">Please feel free to send us feedback at<img src="/assets/img/contact-email-blue.png" height="" width="175"/></p>
             </li>
 		    <li>How can I become an Editor?
 		    <p style="font-weight: normal;">We are looking for individuals who are interested in volunteering as editors.  The main requirement is that you have some familiarity with AI, either as a working practitioner, or as a gradutate student or faculty member.  It doesn't take much time, just a few hours a month. Please contact us at<img src="/assets/img/contact-email-blue.png" height="" width="175"/></p>
