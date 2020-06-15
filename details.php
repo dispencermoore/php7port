@@ -70,7 +70,7 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
 
   <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/nav.php'); ?>
 
-  <?php include ($_SERVER['DOCUMENT_ROOT'].'/includes/search-section.php'); ?>
+
   
   <div class="container">
     

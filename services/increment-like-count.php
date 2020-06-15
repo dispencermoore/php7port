@@ -22,8 +22,8 @@ $alreadyLiked = false;
  }
  if ($_SESSION["user"]->likeCNT >= 15) { 
     $maxLiked = true;
-  }
-    else{
+    header('HTTP/1.1 304 Not Modified'); 
+    }else{
       $maxLiked = false;
     }
  
@@ -39,8 +39,6 @@ $alreadyLiked = false;
     header('HTTP/1.1 200 OK');
 }else if ($alreadyLiked){
     header('HTTP/1.1 304 Not Modified');
-}else if ($maxliked){
-  header('HTTP/1.1 304 Not Modified');
 }else if(!isset($_SESSION["user"]->name)){
 header('HTTP/1.1 401 You must be logged in');
 

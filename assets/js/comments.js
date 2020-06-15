@@ -44,7 +44,6 @@ var RIstring = urltext.substring(RIstart + 1, RIend);
       $('.bt-add-com').click(function(){
         
         var theCom = $(this).siblings('.the-new-com');
-        CheckcomCount();
         var comCountElm = $('#comment-count');
         var comCount = parseInt(comCountElm.text());
         var resource_id = RIstring;
@@ -67,7 +66,6 @@ var RIstring = urltext.substring(RIstart + 1, RIend);
               success: function(html){
                 comCountElm.text(comCount+1);
                 location.reload(true);
-                alert(sign_name + ", you have " + (ScomCount - 1) + " comments remaining");
                 theCom.val('');
                 $(that).css({opacity:0.6});
                 

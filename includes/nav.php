@@ -44,7 +44,7 @@ isLoggedIn();
              <input type="text" id="name-area" name="first-name-area" style= "margin: 5px 10px" ></input>
              <label for= "last-name-area" style= "margin: 5px 10px" >Last Name:</label>
              <input type="text" id="name-area" name="last-name-area" style= "margin: 5px 10px" ></input>
-             <input  type ="submit" class=btn-sign-in style = "background-color: #337ab7"></input> 
+             <input  type ="submit" style = "font-weight: bold; width : 100%; background-color: #00b6ff; border: none"></input> 
            </form>
                 </li>
               <?php } else { ?>

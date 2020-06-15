@@ -11,9 +11,6 @@
       </span>
     </span>
 </span>
-
-
-
 <?php
   if( !isset($countOf) ) { $countOf = 'approved_count'; }
   if( !isset($catHref) ) { $catHref = '/'; }

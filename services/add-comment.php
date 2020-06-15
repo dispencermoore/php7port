@@ -13,12 +13,7 @@ $_name;
     $_SESSION["user"]->comCNT = $_SESSION["user"]->comCNT - 1;
     $user_id =$_SESSION["user"]->id;
     $PcomCNT = $_SESSION["user"]->comCNT; 
-    ?>
-<script type="text/JavaScript">  
-    alert("<?php echo $resource_id ?>");
-     ScomCount = "<?php echo $PcomCNT; ?>";
-</script>
-<?php 
+  
 }
 $_name = "'".$_SESSION["user"]->name."'";
 $image = "'".$_SESSION["user"]->image."'";

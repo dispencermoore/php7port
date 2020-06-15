@@ -14,8 +14,40 @@ $_SESSION["user"]->name = $F_name." ".$L_name;
 $_SESSION["user"]->id = rand();
   }
 if (!isset($_SESSION["user"]->image)) { 
-$_SESSION['user']->image ="/assets/img-3rd/adaptive.png";
+    $userimg = rand(1,19);
+    if ($userimg == 1 or $userimg == 2){
+        $_SESSION['user']->image ="/assets/img-3rd/dog.png";
+      }
+    if ($userimg == 3 or $userimg == 4){
+        $_SESSION['user']->image ="/assets/img-3rd/lion.png";
+      }
+    if ($userimg == 5 or $userimg == 6){ 
+       $_SESSION['user']->image ="/assets/img-3rd/turtle.png";
+      }
+    if ($userimg == 7 or $userimg == 8){
+        $_SESSION['user']->image ="/assets/img-3rd/jaguar.png";
+      }
+      if ($userimg == 9 or $userimg == 10){
+        $_SESSION['user']->image ="/assets/img-3rd/bird.png";
+      }
+    if ($userimg == 11 or $userimg == 12){
+        $_SESSION['user']->image ="/assets/img-3rd/horse.png";
+      }
+    if ($userimg == 13 or $userimg == 14){ 
+       $_SESSION['user']->image ="/assets/img-3rd/fish.png";
+      }
+    if ($userimg == 15 or $userimg == 16){
+        $_SESSION['user']->image ="/assets/img-3rd/cow.png";
+      }
+      if ($userimg == 17 or $userimg == 8){ 
+       $_SESSION['user']->image ="/assets/img-3rd/blowfish.png";
+      }
+    if ($userimg == 19){
+        $_SESSION['user']->image ="/assets/img-3rd/ghost.png";
+      }
 }
+
+
 if (!isset($_SESSION["user"]->comCNT)) { 
 $_SESSION['user']->comCNT =5;
 }

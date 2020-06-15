@@ -1,4 +1,10 @@
 <?php if(!isset($_SESSION)){session_start();} 
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 86400)) {
+   session_unset();    
+   session_destroy();  
+}
+$_SESSION['LAST_ACTIVITY'] = time();
+
 ini_set('“memory_limit”','”16M“');
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
 
@@ -51,10 +57,6 @@ var PlikeCNT = "<?php echo $PlikeCNT; ?>";
     function testy(){
     alert("The answer to all of your Prayers");
     } 
-    function CheckcomCount(){
-      alert("check called");
-    alert("comCNT is " + ScomCount);
-    }
     function SendName(){
       alert("SendName Called");
       var sign_name = document.getElementById('name-area').value;

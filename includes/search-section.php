@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+}
 <html lang="en">
 <head>
       <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
@@ -7,10 +8,11 @@
     <!-- ############### search bar ################## -->
     <div class="row">
       <div id="search" class="col-xs-12">
+
         <form id="searchform" class="form-search form-group" method="GET" action="<?= $catHref ?>">
           <script>
-             var searchtermVar = "<?php echo $query ?>";
-          </script>
+    var searchtermVar = "<?php echo $query ?>";
+               </script>
           <div class="row">
             <div class="col-lg-12">
               <div id="search-bar" class="input-group">
