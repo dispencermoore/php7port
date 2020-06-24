@@ -18,10 +18,10 @@ isLoggedIn();
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="nav navbar-nav">
           <!-- <li><a href="submit.php">Add Resource</a></li> -->
-          <li><a href="add-resource.php">Add Resource</a></li>
+          <li><a href="/services/add-resource.php">Add Resource</a></li>
           <?php if(isAdmin()) { ?><li><a href="pending.php">Pending</a></li><?php } ?>
-          <li><a href="about.php">About</a></li>
-          <li><a href="faq.php">FAQ</a></li>
+          <li><a href="/main_pages/about.php">About</a></li>
+          <li><a href="/main_pages/faq.php">FAQ</ a></li>
           <li class="dropdown">
             <?php if( !isLoggedIn() ) { ?>
               <a href="#" class="hide-after-auth dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

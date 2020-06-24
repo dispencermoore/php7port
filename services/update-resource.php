@@ -90,7 +90,7 @@ if( !empty($_POST['id'])
 //  	if($result && $row['approved_date'] == '')
 //  		redirect("/pending.php");
 //	else if($result)
-		redirect("/details.php?id=".$id);
+		redirect("/main_pages/details.php?id=".$id);
 } else {
   
   if( empty($_POST['id']) ) echo '<br>Requires id.';
@@ -103,7 +103,7 @@ if( !empty($_POST['id'])
   
   $backLink = '/index.php';
   if(isset($_POST['id'])){
-    $backLink = "/edit_resource.php?id=".$_POST['id'];
+    $backLink = "/services/edit_resource.php?id=".$_POST['id'];
   }
   
   echo '<p>Click <a href="'.$backLink.'">here</a> to try again';
