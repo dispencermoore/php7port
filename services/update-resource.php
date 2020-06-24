@@ -103,7 +103,7 @@ if( !empty($_POST['id'])
   
   $backLink = '/index.php';
   if(isset($_POST['id'])){
-    $backLink = "/edit_resource.php?id=".$_POST['id'];
+    $backLink = "/services/edit_resource.php?id=".$_POST['id'];
   }
   
   echo '<p>Click <a href="'.$backLink.'">here</a> to try again';

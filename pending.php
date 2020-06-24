@@ -224,7 +224,7 @@ if(isAdmin()) {
                 
             <div id="edit-btns-<?=$row{'id'}?>" class="editBtn-group">
               <span class="editBtn">
-                <a class="btn btn-default" href="/edit_resource.php?id=<?=$row{'id'}?>">Edit</a>
+                <a class="btn btn-default" href="/services/edit_resource.php?id=<?=$row{'id'}?>">Edit</a>
               </span>
               <span class="editBtn">
                 <a class="btn btn-danger" href="#"
