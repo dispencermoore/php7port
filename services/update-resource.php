@@ -90,7 +90,7 @@ if( !empty($_POST['id'])
 //  	if($result && $row['approved_date'] == '')
 //  		redirect("/pending.php");
 //	else if($result)
-		redirect("/details.php?id=".$id);
+		redirect("/main_pages/details.php?id=".$id);
 } else {
   
   if( empty($_POST['id']) ) echo '<br>Requires id.';

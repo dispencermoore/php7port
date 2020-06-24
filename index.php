@@ -221,7 +221,7 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
               <span name="like_input" id= "like_input" type="submit" class="hover-show glyphicon glyphicon-thumbs-up like <?=$likedClass?>" aria-hidden="true"  value="<?=$row{'id'}?>"
                 data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_likes'}?></span>
               
-              <a class="hover-show" type="submit" href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
+              <a class="hover-show" type="submit" href="/main_pages/details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>#comments">
                  
                   <span class="glyphicon glyphicon-comment comment" aria-hidden="true" data-resource-id="<?=$row{'id'}?>"> <?=$row{'num_comments'}?></span>
               </a>
@@ -229,7 +229,7 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
             <td class="resource-column">
               <div class="resource">
                 <div class="resource-title">
-                  <a href="details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>"><?=$row{'name'}?></a>
+                  <a href="/main_pages/details.php?id=<?=$row{'id'}?>&cat=<?=$cat?>"><?=$row{'name'}?></a>
                   <span class="resource-type"><?= $typeHtml ?></span>
                 </div>
 

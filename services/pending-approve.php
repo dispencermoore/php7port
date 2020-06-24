@@ -58,7 +58,7 @@ if(isset($_POST['approve'])){
 
   updateCount($id);
   
-  redirect("/details.php?id=$id");
+  redirect("/main_pages/details.php?id=$id");
 } else {
   redirect("/pending.php");
 }

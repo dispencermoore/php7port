@@ -1,9 +1,10 @@
 <?php if(!isset($_SESSION)){session_start();} 
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 86400)) {
+if (!isset($_SESSION['CREATED'])) {
+   $_SESSION['CREATED'] = time();
+} else if (time() - $_SESSION['CREATED'] > 86400) {
    session_unset();    
-   session_destroy();  
+   session_destroy();
 }
-$_SESSION['LAST_ACTIVITY'] = time();
 
 ini_set('“memory_limit”','”16M“');
 include($_SERVER['DOCUMENT_ROOT'].'/_secret/mysql_pass.php');
