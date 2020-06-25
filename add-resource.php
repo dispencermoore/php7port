@@ -14,8 +14,8 @@
 
 <div id="index" class="span7">
 	<div id="resourceinfo">
-		<p>
-      Please email admin-at-airesources.org to add a Resource. Include as much of the following info as possible:
+		<p style="font-family:'verdana'"> <br> <br>
+      Please email <img src="/assets/img/contact-email-blue.png" height="" width="175"/>to add a Resource. Include as much of the following info as possible:
 		</p>
     <ul>
       <li>Name</li>
