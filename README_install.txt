@@ -1,7 +1,7 @@
 Installing this project on a new server.
 
 1. In the folder _secret, there is a php file where the MySQL database credentials are held (mysql_pass.php). First, change these credentials to match the MySQL database of the new server.
-2. Make a new zip folder of the project.
+2. Make a new zip folder of htdocs project.
 3. Send the zip folder over to the new server with the following command:  scp -i [location of key] [location of zip folder] ubuntu@[server address]:~
 4. Once it has finished uploading, connect to the server using the following command: ssh -i [location of key] ubuntu@[server address]
 5. While connected to the new server, verify the zip folder has properly uploaded using the "ls" command. If the zip folder shows up, then it is good. If not seen, try using "cd ~", or re-uploading. 
