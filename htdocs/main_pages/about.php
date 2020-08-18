@@ -81,7 +81,7 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
         <div class="section-subheader">Managing Editor</div>
         <div class="row">
           <div class="list-item col-xs-12">
-            Alfred Krzywicki
+            Gabriella Desch-Obi
           </div>
         </div>
       </div>
@@ -96,81 +96,11 @@ include ($_SERVER['DOCUMENT_ROOT'].'/includes/header.php'); ?>
            <div class="list-item col-xs-6">
             Spencer Moore
           </div>
-             <div class="list-item col-xs-6">
-            Gabby Desch-Obi
-          </div>
            <div class="list-item col-xs-6">
            Kaushik Korlapati
           </div>
           <div class="list-item col-xs-6">
-            Sanqiang Zhao
-          </div>
-          <div class="list-item col-xs-6">
-            Manushaqe Muco
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Nafiseh Sedaghat
-          </div>
-          <div class="list-item col-xs-6">
-            David Rajaratnam
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Paul Weng
-          </div>
-          <div class="list-item col-xs-6">
-            Dylan Sherry
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Pawan Gupta
-          </div>
-          <div class="list-item col-xs-6">
-            Karthik Narasimhan
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Soheila Dehghanzadeh
-          </div>
-          <div class="list-item col-xs-6">
-            Marissa LaMadrid-Herrmannsfeldt
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Bo Wu
-          </div>
-          <div class="list-item col-xs-6">
-            Yao-Yi Chiang
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Roni Stern
-          </div>
-          <div class="list-item col-xs-6">
-            Kobi Gal
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Nir Lipovetzky
-          </div>
-          <div class="list-item col-xs-6">
-            Andreas Mueller
-          </div>
-        </div>
-        <div class="row">
-          <div class="list-item col-xs-6">
-            Archana Ram
-          </div>
-          <div class="list-item col-xs-6">
-<!--            Andreas Mueller-->
+           Cade Garvey
           </div>
         </div>
       </div>
