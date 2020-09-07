@@ -13,6 +13,7 @@ $_SESSION["user"]->name = $F_name." ".$L_name;
  if (!isset($_SESSION["user"]->id)) { 
 $_SESSION["user"]->id = rand();
   }
+/*
 if (!isset($_SESSION["user"]->image)) { 
     $userimg = rand(1,19);
     if ($userimg == 1 or $userimg == 2){
@@ -46,6 +47,7 @@ if (!isset($_SESSION["user"]->image)) {
         $_SESSION['user']->image ="/assets/img-3rd/ghost.png";
       }
 }
+*/
 
 
 if (!isset($_SESSION["user"]->comCNT)) { 

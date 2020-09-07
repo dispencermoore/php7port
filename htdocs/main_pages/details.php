@@ -52,7 +52,7 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
     $user_id = $_SESSION["user"]->id;
 
     $likedRs = mysqli_query($pMysqli, "
-      SELECT COUNT(*) as cnt FROM resource_likes
+      SELECT COUNT(*) as cnt FROM resource_like
       WHERE resource_id=".$resourceRs{'id'}."
       AND user_id=$user_id
       ");
@@ -87,12 +87,7 @@ $pMysqli = new mysqli($hostname, $username, $password, $database);
         <div class="editBtn-group">
           <span class="editBtn">
             <a class="admin-href" href="#"
-<<<<<<< HEAD
                href="/edit_resource.php?id=<?=$resourceRs{'id'}?>">Edit</a>
-=======
-               href="/services/edit_resource.php?id=<?=$resourceRs{'id'}?>">Edit</a>
->>>>>>> 63ba0085a3528c46eceb223fb103e69e2ecce2ec
-          </span>
           <span class="editBtn">
             <a id="deleteBtn"
                class="admin-href" href="#"

@@ -164,8 +164,8 @@ function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level, $pMysql
     $name .= ' (' . $row{'pending_count'} . ')';    
   } else
   if( $countOf == 'approved_count' ) {
-    $name .= isset($row{'approved_count'}) ? $row{'approved_count'} : '';
-    //$name .= ' (' . $row{'approved_count'} . ')';
+   // $name .= isset($row{'approved_count'}) ? $row{'approved_count'} : '';
+    $name .= ' (' . $row{'approved_count'} . ')';
   }
   $icon = ($level == 0) ? 'glyphicon-plus' : 'glyphicon-minus';
 
@@ -205,6 +205,9 @@ function writeTopicEntry($catHref, $row, $countOf, $selectedCat, $level, $pMysql
 function createCategoryEntry($row, $countOf, $pMysqli) {
   $id = $row{'id'};
   $name = $row{'name'};
+  
+  echo "<script type='text/javascript'>alert('$countOf');</script>";
+
   if( $countOf == 'pending_count' ) {
     $name .= ' (' . $row{'pending_count'} . ')';    
   } else
@@ -472,9 +475,9 @@ function getResourceSearchSQL($subcatString, $query, $startIdx, $MAX_RESULTS) {
 //    $sqlStatement.=" AND (r.name like '%".$query."%' OR r.description like '%".$query."%')";
     $queryCond = "MATCH(r.name,description,owner,author) AGAINST ('$query' IN BOOLEAN MODE)";
     $sqlStatement.=" AND $queryCond";
-    $sqlStatement.=" ORDER BY $queryCond DESC, num_likes DESC, r.name";
+    $sqlStatement.=" ORDER BY $queryCond DESC, num_likes DESC, r.approved_date DESC";
   } else {
-    $sqlStatement.=" ORDER BY num_likes DESC, r.name";    
+    $sqlStatement.=" ORDER BY num_likes DESC, r.approved_date DESC";    
   }
   $sqlStatement.=" LIMIT $startIdx, $MAX_RESULTS";
   
